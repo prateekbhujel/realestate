@@ -32,7 +32,7 @@
 	<link rel="stylesheet" href="{{ asset('backend/assets/css/demo2/style.css') }}">
   <!-- End layout styles -->
 
-  <link rel="shortcut icon" href="{{ asset('backend/assets/images/favicon.png') }}" />
+  <link rel="shortcut icon" href="{{ asset('backend/assets/images/favicon.ico') }}" />
 
   <style>
     .authlogin-side-wrapper{
@@ -41,6 +41,7 @@
       background-image: url( {{ asset('upload/login.png') }}); 
     }
   </style>
+  
 </head>
 <body>
 	<div class="main-wrapper">

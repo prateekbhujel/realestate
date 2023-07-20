@@ -126,7 +126,7 @@ class AdminController extends Controller
         if(!Hash::check($request->old_password, auth::user()->password))
         {
             $notification = array(
-                'message'    => 'Old Password does not match !',
+                'message'    => 'Old Password does not match php!',
                 'alert-type' => 'error'
             );
     

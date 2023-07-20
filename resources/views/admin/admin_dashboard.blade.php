@@ -33,7 +33,9 @@
 	<link rel="stylesheet" href="{{ asset('backend/assets/css/demo2/style.css') }}">
   <!-- End layout styles -->
 
-  <link rel="shortcut icon" href="{{ asset('backend/assets/images/favicon.png') }}" />
+  <link rel="icon" href="{{ asset('backend/assets/images/favicon.ico') }}" />
+{{-- <link rel="icon" href="{{ ('frontend/assets/images/favicon.ico') }}" type="image/x-icon"> --}}
+
 
   {{-- Jquery 3.6.4 version --}}
   <script src="{{ asset('backend/assets/js/jquery.js') }}"></script>
