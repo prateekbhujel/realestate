@@ -40,8 +40,12 @@
   {{-- Jquery 3.6.4 version --}}
   <script src="{{ asset('backend/assets/js/jquery.js') }}"></script>
 
+	{{-- Datatable --}}
+	<link rel="stylesheet" href="{{ asset('backend/assets/vendors/datatables.net-bs5/dataTables.bootstrap5.css') }}">
+
   {{-- Toaster CSS --}}
   <link rel="stylesheet" type="text/css" href="{{ asset('backend/assets/css/toastr.css') }}" >
+  {{-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" > --}}
 
 </head>
 <body>
@@ -85,6 +89,7 @@
 	<!-- End custom js for this page -->
 
 <script type="text/javascript" src="{{ asset('backend/assets/js/toastr.min.js') }}"></script>
+{{-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script> --}}
 	<script>
 		@if(Session::has('message'))
 		var type = "{{ Session::get('alert-type','info') }}"
@@ -108,111 +113,24 @@
 		@endif 
 	</script>
 
+	<!-- Plugin js for this DataTable -->
+	<script src="{{ asset('backend/assets/vendors/datatables.net/jquery.dataTables.js') }}"></script>
+	<script src="{{ asset('backend/assets/vendors/datatables.net-bs5/dataTables.bootstrap5.js') }}"></script>
+	  <!-- End plugin js for DataTable -->
+	
+	{{-- Start of Sweet Alert / and custom --}}
+	<script src="{{ asset('backend/assets/js/sweetalert2@10.js') }}"></script>
+	{{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> --}}
+		{{-- Custom --}}
+		<script src="{{ asset('backend/assets/js/code/code.js') }}"></script>
+
+	{{-- End of Sweet Alert / and custom --}}
+
+	<script src="{{ asset('backend/assets/js/code/validate.min.js') }}"></script>
+	
+	<!-- Custom js for DataTable -->
+	<script src="{{ asset('backend/assets/js/data-table.js') }}"></script>
+	<!-- End custom js for DataTable -->
+	
 </body>
 </html>    
-
-
-
-
-{{-- =========================Add Sweetalert =======================
-
-<script src="{{ asset('backend/assets/js/sweetalert2@10') }}"></script>
-
-<script src="{{ asset('backend/assets/js/code.js') }}"></script>
-
-
-$(function(){
-   $(document).on('click','#delete',function(e){
-	   e.preventDefault();
-	   var link = $(this).attr("href");
-
- 
-				 Swal.fire({
-				   title: 'Are you sure?',
-				   text: "Delete This Data?",
-				   icon: 'warning',
-				   showCancelButton: true,
-				   confirmButtonColor: '#3085d6',
-				   cancelButtonColor: '#d33',
-				   confirmButtonText: 'Yes, delete it!'
-				 }).then((result) => {
-				   if (result.isConfirmed) {
-					 window.location.href = link
-					 Swal.fire(
-					   'Deleted!',
-					   'Your file has been deleted.',
-					   'success'
-					 )
-				   }
-				 }) 
-
-
-   });
-
- });
-
-
-============================Sweetalert Show Messsage ================= 
-
-			   // Start Message 
-
-		   const Toast = Swal.mixin({
-				 toast: true,
-				 position: 'top-end',
-				 icon: 'success', 
-				 showConfirmButton: false,
-				 timer: 3000 
-		   })
-		   if ($.isEmptyObject(data.error)) {
-				   
-				   Toast.fire({
-				   type: 'success',
-				   title: data.success, 
-				   })
-
-		   }else{
-			  
-		  Toast.fire({
-				   type: 'error',
-				   title: data.error, 
-				   })
-			   }
-
-			 // End Message   
-
-
-
-
-=============== WishList Part For Show Response Message ==========================
-
- // Start Message 
-
-		   const Toast = Swal.mixin({
-				 toast: true,
-				 position: 'top-end',
-				 
-				 showConfirmButton: false,
-				 timer: 3000 
-		   })
-		   if ($.isEmptyObject(data.error)) {
-				   
-				   Toast.fire({
-				   type: 'success',
-				   icon: 'success', 
-				   title: data.success, 
-				   })
-
-		   }else{
-			  
-		  Toast.fire({
-				   type: 'error',
-				   icon: 'error', 
-				   title: data.error, 
-				   })
-			   }
-
-			 // End Message  
-
-=============== End WishList Part For Show Response Message ========================== --}}
-
-

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Backend\PropertyTypeController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -59,3 +60,32 @@ Route::middleware(['auth','role:agent'])->group(function(){
 }); // End Group Agent Middleware
 
 Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login');
+
+
+// Property Type All Route Start
+Route::middleware(['auth','role:admin'])->group(function(){ // from laravel 9 and + is available Calling controller once for all.
+    
+    Route::controller(PropertyTypeController::class)->group(function(){
+        
+        Route::get('/all/type', 'AllType')->name('all.type');
+        Route::get('/add/type', 'AddType')->name('add.type');
+        Route::post('/store/type', 'StoreType')->name('store.type');
+        Route::get('/edit/type/{id}', 'EditType')->name('edit.type');
+        Route::post('/update/type', 'UpdateType')->name('update.type');
+        Route::get('/delete/type/{id}', 'DeleteType')->name('delete.type');
+
+    }); // End Property Type All Route.
+    
+    // Amenities Type Start It is created on PropertyType Controller because it is related to Property
+    Route::controller(PropertyTypeController::class)->group(function(){
+        
+        Route::get('/all/amenities', 'AllAmenities')->name('all.amenities');
+        Route::get('/add/amenities', 'AddAmenities')->name('add.amenities');
+        Route::post('/store/amenities', 'StoreAmenities')->name('store.amenities');
+        Route::get('/edit/amenities/{id}', 'EditAmenities')->name('edit.amenities');
+        Route::post('/update/amenities', 'UpdateAmenities')->name('update.amenities');
+        Route::get('/delete/amenities/{id}', 'DeleteAmenities')->name('delete.amenities');
+
+    }); // End Amenities Type All Route.
+
+}); //End Admin
