@@ -30,8 +30,13 @@ class AdminController extends Controller
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
+        
+        $notification = array(
+            'message' => 'Admin Logout Sucessfully!',
+            'alert-type' => 'success'
+        );
 
-        return redirect('/admin/login');
+        return redirect('/admin/login')->with($notification);
     }
     /** End of AdminLogout Method*/
     
@@ -62,13 +67,35 @@ class AdminController extends Controller
 
     /** Start of AdminProfileStore Method 
      * This method Store the data passed from form and save it into Database.
-     * Saves The specific Logged In User data.
+     * Saves The specific Logged In User data and return redirect with toaster message .
     */
     public function AdminProfileStore(Request $request)
     {
         $id = Auth::user()->id;
         $data = User::find($id); 
+        
+        // Define the validation rules for the input fields
+        $rules = [
+            'username' => 'required|string|max:255|unique:users,username,' . $id . '|regex:/^\S*$/',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $id,
+            'phone' => 'required|string|max:20',
+            'address' => 'required|string|max:255',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ];
 
+        // Define custom error messages
+        $messages = [
+            'username.regex' => 'The username must not contain spaces.',
+        ];
+
+        // Run the validation
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        // Check if the validation fails
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
         $data->username = $request->username;
         $data->name     = $request->name;
         $data->email    = $request->email;
@@ -126,7 +153,7 @@ class AdminController extends Controller
         if(!Hash::check($request->old_password, auth::user()->password))
         {
             $notification = array(
-                'message'    => 'Old Password does not match php!',
+                'message'    => 'Old Password does not match !',
                 'alert-type' => 'error'
             );
     

@@ -34,6 +34,9 @@
 
   <link rel="shortcut icon" href="{{ asset('backend/assets/images/favicon.ico') }}" />
 
+    {{-- Toaster CSS --}}
+    <link rel="stylesheet" type="text/css" href="{{ asset('backend/assets/css/toastr.css') }}" >
+
   <style>
     .authlogin-side-wrapper{
       width: 100%;
@@ -64,9 +67,12 @@
                     <form class="forms-sample" method="post" action ="{{ route('login') }}">
                         @csrf
 
-                      <div class="mb-3">
-                        <label for="login" class="form-label">UserName/Email/Phone</label>
-                        <input type="text" name="login" id = "login" class="form-control" placeholder="UserName/Email/Phone">
+                        <div class="mb-3">
+                          <label for="login" class="form-label">UserName/Email/Phone</label>
+                          <input type="text" name="login" id="login" class="form-control @error('login') is-invalid @enderror" placeholder="UserName/Email/Phone" value="{{ old('login') }}">
+                          @error('login')
+                          <div class="invalid-feedback">{{ $message }}</div>
+                          @enderror
                       </div>
                       <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
@@ -109,6 +115,30 @@
 	<!-- endinject -->
 
 	<!-- Custom js for this page -->
+  <script type="text/javascript" src="{{ asset('backend/assets/js/toastr.min.js') }}"></script>
+	<script>
+		@if(Session::has('message'))
+		var type = "{{ Session::get('alert-type','info') }}"
+		switch(type){
+		case 'info':
+		toastr.info(" {{ Session::get('message') }} ");
+		break;
+		
+		case 'success':
+		toastr.success(" {{ Session::get('message') }} ");
+		break;
+		
+		case 'warning':
+		toastr.warning(" {{ Session::get('message') }} ");
+		break;
+		
+		case 'error':
+		toastr.error(" {{ Session::get('message') }} ");
+		break; 
+		}
+		@endif 
+	</script>
+
 	<!-- End custom js for this page -->
 
 </body>

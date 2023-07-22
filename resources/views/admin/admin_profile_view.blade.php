@@ -51,52 +51,73 @@
                         Update Admin Profile
                     </h6>
                     
-                        <form class="forms-sample" method="POST" action="{{ route('admin.profile.store') }}" enctype="multipart/form-data">
-                            @csrf
-                          <div class="mb-3">
-                            <label for="Username" class="form-label">Username</label>
-                            <input type="text" class="form-control" name="username" id="username" autocomplete="off" value="{{ $profileData->username }}">
-                          </div>
-
-                          <div class="mb-3">
-                            <label for="Name" class="form-label">Name</label>
-                            <input type="text" class="form-control" name="name" id="name" autocomplete="off" value="{{ $profileData->name }}">
-                          </div>
-                            
-                          <div class="mb-3">
-                            <label for="Email address" class="form-label">Email address</label>
-                            <input type="email" class="form-control"  name="email" id="email" value="{{ $profileData->email }}">
-                          </div>
-
-                          <div class="mb-3">
-                            <label for="Phone" class="form-label">Phone</label>
-                            <input type="text" class="form-control" name="phone" id="phone" autocomplete="off" value="{{ $profileData->phone }}">
-                          </div>
-
-                          <div class="mb-3">
-                            <label for="Address" class="form-label">Address</label>
-                            <input type="text" class="form-control" name="address" id="address" autocomplete="off" value="{{ $profileData->address }}">
-                          </div>
-
-                          <div class="mb-3">
-                            <label for="exampleInputUsername1" class="form-label">Photo</label>
-                            <input type="file" class="form-control" name="photo" id="image" autocomplete="off" value="{{ $profileData->photo }}">
-                   
-                            <label for="exampleInputUsername1" class="form-label"> </label>
-                            <center>
-                                <img id="showImage" class="wd-100 rounded-circle" src="{{ (!empty($profileData->photo)) ? url('upload/admin_images/'.$profileData->photo) : url('upload/no_image.jpg') }}" alt="profile">
-                            </center>
-                          </div>
-
-                      {{-- <div class="mb-3">
-                          <label for="password" name="password" class="form-label">Password</label>
-                          <input type="password" class="form-control" id="exampleInputPassword1" autocomplete="off" placeholder="Password">
-                      </div> --}}
-
-                          
-                            
-                          <button type="submit" class="btn btn-primary me-2">Save Changes</button>
-                    </form>
+                    <form class="forms-sample" method="POST" action="{{ route('admin.profile.store') }}" enctype="multipart/form-data">
+                      @csrf
+                      <div class="mb-3">
+                          <label for="Username" class="form-label">Username</label>
+                          <span class="text-danger"> * </span>
+                          <input type="text" class="form-control @error('username') is-invalid @enderror" name="username" id="username" autocomplete="off" value="{{ $profileData->username }}">
+                          @error('username')
+                              <div class="invalid-feedback">{{ $message }}</div>
+                          @enderror
+                      </div>
+                  
+                      <div class="mb-3">
+                          <label for="Name" class="form-label">Name</label>
+                          <span class="text-danger"> * </span>
+                          <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" autocomplete="off" value="{{ $profileData->name }}">
+                          @error('name')
+                              <div class="invalid-feedback">{{ $message }}</div>
+                          @enderror
+                      </div>
+                  
+                      <div class="mb-3">
+                          <label for="Email address" class="form-label">Email address</label>
+                          <span class="text-danger"> * </span>
+                          <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" id="email" value="{{ $profileData->email }}">
+                          @error('email')
+                              <div class="invalid-feedback">{{ $message }}</div>
+                          @enderror
+                      </div>
+                  
+                      <div class="mb-3">
+                          <label for="Phone" class="form-label">Phone</label>
+                          <span class="text-danger"> * </span>
+                          <input type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" id="phone" autocomplete="off" value="{{ $profileData->phone }}">
+                          @error('phone')
+                              <div class="invalid-feedback">{{ $message }}</div>
+                          @enderror
+                      </div>
+                  
+                      <div class="mb-3">
+                          <label for="Address" class="form-label">Address</label>
+                          <span class="text-danger"> * </span>
+                          <input type="text" class="form-control @error('address') is-invalid @enderror" name="address" id="address" autocomplete="off" value="{{ $profileData->address }}">
+                          @error('address')
+                              <div class="invalid-feedback">{{ $message }}</div>
+                          @enderror
+                      </div>
+                  
+                      <div class="mb-3">
+                          <label for="exampleInputUsername1" class="form-label">Photo</label>
+                          <span class="text-danger"> * </span>
+                          <input type="file" class="form-control @error('photo') is-invalid @enderror" name="photo" id="image" autocomplete="off" value="{{ $profileData->photo }}">
+                  
+                          @if($profileData->photo)
+                              <label for="exampleInputUsername1" class="form-label"> </label>
+                              <center>
+                                  <img id="showImage" class="wd-100 rounded-circle" src="{{ url('upload/admin_images/'.$profileData->photo) }}" alt="profile">
+                              </center>
+                          @endif
+                  
+                          @error('photo')
+                              <div class="invalid-feedback">{{ $message }}</div>
+                          @enderror
+                      </div>
+                  
+                      <button type="submit" class="btn btn-primary me-2">Save Changes</button>
+                  </form>
+                  
   
                 </div>
             </div>

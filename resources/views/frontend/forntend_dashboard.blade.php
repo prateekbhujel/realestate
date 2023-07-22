@@ -26,6 +26,10 @@
 <link href="{{ asset('frontend/assets/css/switcher-style.css') }}" rel="stylesheet">
 <link href="{{ asset('frontend/assets/css/style.css') }}" rel="stylesheet">
 <link href="{{ asset('frontend/assets/css/responsive.css') }}" rel="stylesheet">
+<script src="{{ asset('frontend/assets/js/jquery.js') }}"></script>
+  
+{{-- Toaster CSS --}}
+  <link rel="stylesheet" type="text/css" href="{{ asset('backend/assets/css/toastr.css') }}" >
 
 </head>
 
@@ -81,8 +85,30 @@
     <script src="{{ asset('frontend/assets/js/jquery-ui.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/nav-tool.js') }}"></script>
 
-    <!-- main-js -->
+    <!-- Toaster main-js -->
     <script src="{{ asset('frontend/assets/js/script.js') }}"></script>
-
+    <script type="text/javascript" src="{{ asset('backend/assets/js/toastr.min.js') }}"></script>
+	<script>
+		@if(Session::has('message'))
+		var type = "{{ Session::get('alert-type','info') }}"
+		switch(type){
+		case 'info':
+		toastr.info(" {{ Session::get('message') }} ");
+		break;
+		
+		case 'success':
+		toastr.success(" {{ Session::get('message') }} ");
+		break;
+		
+		case 'warning':
+		toastr.warning(" {{ Session::get('message') }} ");
+		break;
+		
+		case 'error':
+		toastr.error(" {{ Session::get('message') }} ");
+		break; 
+		}
+		@endif 
+	</script>
 </body><!-- End of .page_wrapper -->
 </html>

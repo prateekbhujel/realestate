@@ -5,10 +5,10 @@
 <section class="page-title centred" style="background-image: url({{ asset('frontend/assets/images/background/page-title-5.jpg') }});">
     <div class="auto-container">
         <div class="content-box clearfix">
-            <h1>User Profile</h1>
+            <h1>Change Password</h1>
             <ul class="bread-crumb clearfix">
                 <li><a href="index.html">Home</a></li>
-                <li>User Profile</li>
+                <li>Change Password</li>
             </ul>
         </div>
     </div>
@@ -33,20 +33,22 @@
                         </div>
                         <div class="post-inner">
                             <div class="post">
-                                <figure class="post-thumb">
-                                    <a href="blog-details.html">
-                                        <img src="{{ (!empty($userData->photo)) ? url('upload/user_images/'.$userData->photo) : url('upload/no_image.jpg') }}" alt="">
-                                    </a>
-                                </figure>
+                                <figure class="post-thumb"><a href="blog-details.html">
+                                    <img src="{{ (!empty($userData->photo)) ? url('upload/user_images/'.$userData->photo) : url('upload/no_image.jpg') }}" alt=""></a></figure>
                                 <h5><a href="blog-details.html">{{ $userData->name }}</a></h5>
                                 <p>{{ $userData->email }}</p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- sidebar-page-container Start.-->
-                    @include('frontend.dashboard.dashboard_sidebar')
-                    <!-- sidebar-page-container End -->
+                    <div class="sidebar-widget category-widget">
+                        <div class="widget-title">
+                            <!-- ... Your widget title content ... -->
+                        </div>
+
+                        @include('frontend.dashboard.dashboard_sidebar')
+
+                    </div>
                 </div>
             </div>
 
@@ -58,43 +60,43 @@
                             <!-- ... Your existing news block content ... -->
 
                             <div class="lower-content">
-                                <h3>Including Animation In Your Design System.</h3>
-                                <div class="row">
-                                    <div class="col-lg-4">
-                                        <div class="card-body" style="background-color: #1baf65;">
-                                            <h1 class="card-title" style="color: white; font-weight: bold;">0</h1>
-                                            <h5 class="card-text" style="color: white;">Approved properties</h5>
-                                        </div>
+                            
+
+                                <form action="{{ route('user.password.update') }}" method="POST" class="default-form" enctype="multipart/form-data">
+                                    @csrf
+
+                                    <div class="form-group">
+                                        <label>Old Password</label><span class="text-danger"> * </span>
+                                        <input type="password" name="old_password" id="old_password" class="form-control @error('old_password') is-invalid @enderror" required="" autocomplete="off">
+                                        @error('old_password')
+                                        <span class="text-danger">
+                                            {{ $message }}
+                                        </span>
+                                        @enderror
                                     </div>
-                                    <div class="col-md-4">
-                                        <div class="card-body" style="background-color: #ffc107;">
-                                            <h1 class="card-title" style="color: white; font-weight: bold;">0</h1>
-                                            <h5 class="card-text" style="color: white;">Pending approve properties</h5>
-                                        </div>
+
+                                    <div class="form-group">
+                                        <label>New Password</label><span class="text-danger"> * </span>
+                                        <input type="password" name="new_password" id="new_password" class="form-control @error('new_password') is-invalid @enderror" required="" autocomplete="off">
+                                        @error('new_password')
+                                        <span class="text-danger">
+                                            {{ $message }}
+                                        </span>
+                                        @enderror
                                     </div>
-                                    <div class="col-md-4">
-                                        <div class="card-body" style="background-color: #002758;">
-                                            <h1 class="card-title" style="color: white; font-weight: bold;">0</h1>
-                                            <h5 class="card-text" style="color: white;">Rejected properties</h5>
-                                        </div>
+
+                                    <div class="form-group">
+                                        <label>Confirm New Password</label><span class="text-danger"> * </span>
+                                        <input type="password" name="new_password_confirmation" id="new_password_confirmation" class="form-control" required="" autocomplete="off">
+
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                                    
+ 
 
-                <div class="blog-details-content">
-                    <div class="news-block-one">
-                        <div class="inner-box">
-                            <!-- ... Your existing news block content ... -->
-
-                            <div class="lower-content">
-                                <h3>Activity Logs</h3>
-                                <hr>
-
-                                <!-- ... Your Activity Logs content ... -->
-
+                                    <div class="form-group message-btn">
+                                        <button type="submit" class="theme-btn btn-one">Update Password</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>

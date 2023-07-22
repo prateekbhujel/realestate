@@ -14,7 +14,7 @@
     }
 
     /* Hide the "Sign in" tab when the "Register Now" tab is targeted */
-    #tab-2:target ~ #tab-1 {
+    #tab-1:target ~ #tab-2 {
         display: none;
     }
 </style>
@@ -143,4 +143,4 @@
                 </section>
                 <!-- subscribe-section end -->
         
-                  @endsection
+@endsection
