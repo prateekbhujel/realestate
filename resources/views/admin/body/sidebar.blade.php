@@ -1,6 +1,6 @@
 <nav class="sidebar">
             <div class="sidebar-header">
-                <a href="#" class="sidebar-brand">
+                <a href="{{ route('admin.dashboard') }}" class="sidebar-brand">
                 Real<span>Estate</span>
                 </a>
                 <div class="sidebar-toggler not-active">
@@ -13,45 +13,65 @@
                 <ul class="nav">
                 <li class="nav-item nav-category">Main</li>
                 <li class="nav-item">
-                    <a href="dashboard.html" class="nav-link">
+                    <a href="{{ route('admin.dashboard') }}" class="nav-link">
                     <i class="link-icon" data-feather="box"></i>
                     <span class="link-title">Dashboard</span>
                     </a>
                 </li>
                 <li class="nav-item nav-category">RealEstate</li>
+
+    
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="collapse" href="#amenities" role="button" aria-expanded="false" aria-controls="emails">
-                    <i class="link-icon" data-feather="mail"></i>
-                    <span class="link-title">Amenities</span>
-                    <i class="link-arrow" data-feather="chevron-down"></i>
+                    <a class="nav-link" data-bs-toggle="collapse" href="#ptype" role="button" aria-expanded="false" aria-controls="ptype">
+                        <i class="link-icon" data-feather="mail"></i>
+                        <span class="link-title">Property Type</span>
+                        <i class="link-arrow" data-feather="chevron-down"></i>
                     </a>
-                    <div class="collapse" id="amenities">
-                    <ul class="nav sub-menu">
-                        <li class="nav-item">
-                        <a href="{{ route('all.amenities') }}" class="nav-link">All Amenities</a>
-                        </li>
-                        <li class="nav-item">
-                        <a href="{{ route('add.amenities') }}" class="nav-link">Add Amenities</a>
-                        </li>
-                    </ul>
+                    <div class="collapse" id="ptype">
+                        <ul class="nav sub-menu">
+                            <li class="nav-item">
+                                <a href="{{ route('all.type') }}" class="nav-link">All Type</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('add.type') }}" class="nav-link">Add Type</a>
+                            </li>
+                        </ul>
                     </div>
                 </li>
-
+    
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="collapse" href="#emails" role="button" aria-expanded="false" aria-controls="emails">
-                    <i class="link-icon" data-feather="mail"></i>
-                    <span class="link-title">Property Type</span>
-                    <i class="link-arrow" data-feather="chevron-down"></i>
+                    <a class="nav-link" data-bs-toggle="collapse" href="#amenities" role="button" aria-expanded="false" aria-controls="amenities">
+                        <i class="link-icon" data-feather="mail"></i>
+                        <span class="link-title">Amenities</span>
+                        <i class="link-arrow" data-feather="chevron-down"></i>
                     </a>
-                    <div class="collapse" id="emails">
-                    <ul class="nav sub-menu">
-                        <li class="nav-item">
-                        <a href="{{ route('all.type') }}" class="nav-link">All Type</a>
-                        </li>
-                        <li class="nav-item">
-                        <a href="{{ route('add.type') }}" class="nav-link">Add Type</a>
-                        </li>
-                    </ul>
+                    <div class="collapse" id="amenities">
+                        <ul class="nav sub-menu">
+                            <li class="nav-item">
+                                <a href="{{ route('all.amenities') }}" class="nav-link">All Amenities</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('add.amenities') }}" class="nav-link">Add Amenities</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+    
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="collapse" href="#property" role="button" aria-expanded="false" aria-controls="property">
+                        <i class="link-icon" data-feather="mail"></i>
+                        <span class="link-title">Property</span>
+                        <i class="link-arrow" data-feather="chevron-down"></i>
+                    </a>
+                    <div class="collapse" id="property">
+                        <ul class="nav sub-menu">
+                            <li class="nav-item">
+                                <a href="{{ route('all.property') }}" class="nav-link">All Property</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('add.property') }}" class="nav-link">Add Property</a>
+                            </li>
+                        </ul>
                     </div>
                 </li>
 
@@ -110,3 +130,8 @@
                 </ul>
             </div>
         </nav>
+
+
+
+        
+        

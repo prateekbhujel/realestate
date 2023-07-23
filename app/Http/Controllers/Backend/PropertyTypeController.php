@@ -79,7 +79,7 @@ class PropertyTypeController extends Controller
     {
          // Validation and check valid inputs.
          $request->validate([
-            'type_name' => 'required|unique:property_types|max:200',
+            'type_name' => 'required|max:200',
             'type_icon' => 'required',
         ]);
 
@@ -148,7 +148,8 @@ class PropertyTypeController extends Controller
     }
     /** End of AddAmenities Method*/
 
-        /** Start of StoreType Method 
+    
+    /** Start of StoreType Method 
      * checks for validation and store the data into db.
     */
     public function StoreAmenities(Request $request)
@@ -193,11 +194,7 @@ class PropertyTypeController extends Controller
     public function UpdateAmenities(Request $request)
     {
         // dd($request->id, $request->amenities_name);
-        // dd($request);
-         // Validation and check valid inputs.
-         $request->validate([
-            'amenities_name' => 'required|max:200',
-        ]);
+
 
         $ame_id = $request->id; //Set as hiddent field and passing it to update the data of specific users
 

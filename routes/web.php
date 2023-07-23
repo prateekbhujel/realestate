@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Backend\PropertyTypeController;
+use App\Http\Controllers\Backend\PropertyController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -67,25 +68,34 @@ Route::middleware(['auth','role:admin'])->group(function(){ // from laravel 9 an
     
     Route::controller(PropertyTypeController::class)->group(function(){
         
-        Route::get('/all/type', 'AllType')->name('all.type');
-        Route::get('/add/type', 'AddType')->name('add.type');
-        Route::post('/store/type', 'StoreType')->name('store.type');
-        Route::get('/edit/type/{id}', 'EditType')->name('edit.type');
-        Route::post('/update/type', 'UpdateType')->name('update.type');
-        Route::get('/delete/type/{id}', 'DeleteType')->name('delete.type');
+        Route::get('/all_ptype', 'AllType')->name('all.type');
+        Route::get('/add_ptype', 'AddType')->name('add.type');
+        Route::post('/store_property_type', 'StoreType')->name('store.type');
+        Route::get('/edit_property_type/{id}', 'EditType')->name('edit.type');
+        Route::post('/update_property_type', 'UpdateType')->name('update.type');
+        Route::get('/delete_property_type/{id}', 'DeleteType')->name('delete.type');
 
     }); // End Property Type All Route.
     
     // Amenities Type Start It is created on PropertyType Controller because it is related to Property
     Route::controller(PropertyTypeController::class)->group(function(){
         
-        Route::get('/all/amenities', 'AllAmenities')->name('all.amenities');
-        Route::get('/add/amenities', 'AddAmenities')->name('add.amenities');
+        Route::get('/all_amenities', 'AllAmenities')->name('all.amenities');
+        Route::get('/add_amenitie', 'AddAmenities')->name('add.amenities');
         Route::post('/store/amenities', 'StoreAmenities')->name('store.amenities');
-        Route::get('/edit/amenities/{id}', 'EditAmenities')->name('edit.amenities');
-        Route::post('/update/amenities', 'UpdateAmenities')->name('update.amenities');
-        Route::get('/delete/amenities/{id}', 'DeleteAmenities')->name('delete.amenities');
+        Route::get('/edit/amenitied/{id}', 'EditAmenities')->name('edit.amenities');
+        Route::post('/update_amenities', 'UpdateAmenities')->name('update.amenities');
+        Route::get('/delete_amenities/{id}', 'DeleteAmenities')->name('delete.amenities');
 
     }); // End Amenities Type All Route.
+
+    // Start Property Route 
+    Route::controller(PropertyController::class)->group(function(){
+    
+        Route::get('/get_all_property', 'AllProperty')->name('all.property');
+        Route::get('/add_property', 'AddProperty')->name('add.property');
+
+
+    }); // End Property Route.
 
 }); //End Admin
