@@ -96,6 +96,7 @@ Route::middleware(['auth','role:admin'])->group(function(){ // from laravel 9 an
         Route::get('/add_property', 'AddProperty')->name('add.property');
         Route::post('/store_property', 'StoreProperty')->name('store.property');
         Route::get('/edit_property/{id}', 'EditProperty')->name('edit.property');
+        Route::post('/update_property', 'UpdateProperty')->name('update.property');
 
 
     }); // End Property Route.

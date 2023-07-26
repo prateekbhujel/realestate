@@ -52,7 +52,9 @@ class PropertyController extends Controller
         // Implode or separate and get the data.
         // Amenities before saving as it is multiple select
         $amen = $request->amenities_id;
+        // dd($amen);
         $amenities = implode(",", $amen);
+        // dd($amenities);
     
         $pcode = IDGenerator::generate(['table' => 'properties', 'field'=>'property_code', 'length'=> 5, 'prefix'=>'PC']);
         
@@ -64,7 +66,7 @@ class PropertyController extends Controller
         // Insert property data and get the inserted property_id
         $property = Property::create([
             'ptype_id' => $request->ptype_id,
-            'anenities_id' => $amenities,
+            'amenities_id' => $amenities,
             'property_name' => $request->property_name,
             'property_slug' => strtolower(str_replace(' ', '-', $request->property_slug)),
             'property_code' => $pcode,
@@ -88,7 +90,7 @@ class PropertyController extends Controller
             'longitude' => $request->longitude,
             'featured' => $request->featured,
             'hot' => $request->hot,
-            'agent_id' => $request->agent_id,
+            'agent_id' => $request->agent,
             'status' => 1,
             'property_thumbnail' => $save_url,
             'created_at' => Carbon::now(),
@@ -151,8 +153,10 @@ class PropertyController extends Controller
     {
         $property = Property::findorfail($id);
 
-        $type           = $property->anenities_id;
+        $type           = $property->amenities_id;
         $property_ami   = explode(',', $type);
+        
+        // dd($property_ami);
 
         $propertyType   = PropertyType::latest()->get(); 
         $amenities      = Amenities::latest()->get(); 
@@ -163,4 +167,60 @@ class PropertyController extends Controller
     }
     /** End of EditProperty Method*/
 
+
+    /** Start of UpdateProperty Method 
+     *  Updates the data from the filed got from edit file and saves changes to db.
+    */
+    public function UpdateProperty(Request $request)
+    {
+
+        $amen = $request->amenities_id;
+        $amenites = implode(",", $amen);
+        // dd($request);
+
+        $property_id = $request->id;
+
+        Property::findOrFail($property_id)->update([
+
+            'ptype_id' => $request->ptype_id,
+            'amenities_id' => $amenites,
+            'property_name' => $request->property_name,
+            'property_slug' => strtolower(str_replace(' ', '-', $request->property_name)), 
+            'property_status' => $request->property_status,
+
+            'lowest_price' => $request->lowest_price,
+            'max_price' => $request->max_price,
+            'short_descp' => $request->short_descp,
+            'long_descp' => $request->long_descp,
+            'bedrooms' => $request->bedrooms,
+            'bathrooms' => $request->bathrooms,
+            'garage' => $request->garage,
+            'garage_size' => $request->garage_size,
+
+            'property_size' => $request->property_size,
+            'property_video' => $request->property_video,
+            'address' => $request->address,
+            'city' => $request->city,
+            'state' => $request->state,
+            'postal_code' => $request->postal_code,
+
+            'neighborhood' => $request->neighborhood,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
+            'featured' => $request->featured,
+            'hot' => $request->hot,
+            'agent_id' => $request->agent, 
+            'updated_at' => Carbon::now(), 
+
+        ]);
+
+         $notification = array(
+            'message' => 'Property Updated Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('all.property')->with($notification);
+
+    }
+    /** End of UpdateProperty Method*/
 }
