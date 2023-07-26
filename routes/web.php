@@ -98,6 +98,11 @@ Route::middleware(['auth','role:admin'])->group(function(){ // from laravel 9 an
         Route::get('/edit_property/{id}', 'EditProperty')->name('edit.property');
         Route::post('/update_property', 'UpdateProperty')->name('update.property');
 
+        Route::post('/update_property_thumbnail', 'UpdatePropertyThumbnail')->name('update.property.thumbnail');
+        Route::post('/update_property_multiimage', 'UpdatePropertyMultiimage')->name('update.property.multiimage');
+        
+        Route::get('/property_multiimage_delete/{id}', 'PropertyMultiimageDelete')->name('property.multiimage.delete');
+
 
     }); // End Property Route.
 

@@ -56,7 +56,7 @@
                                     <div class="form-group mb-3">
                                         <label class="form-label">Main Thumbnail Image</label>
                                         <span class="text-danger"> * </span>
-                                        <input type="file" name="property_thumbnail" class="form-control" onChange="mainThumbnailUrl(this)" >
+                                        <input type="file" name="property_thumbnail" class="form-control imageUpload" onChange="mainThumbnailUrl(this)" accept="image/*">
 
                                         <img src="" id="mainThmb">
                                     </div>
@@ -67,7 +67,7 @@
                                         <label class="form-label">Multiple Image</label>
                                         <span class="text-danger"> * </span>
                                         <p class="text-muted">Press CTRL and select Image</p>
-                                        <input type="file" name="multi_img[]" class="form-control" id="multiImg" multiple="">
+                                        <input type="file" name="multi_img[]" class="form-control imageUpload" id="multiImg" multiple="" accept="image/*">
 
                                         <div class="row" id="preview_img"></div>
                                     </div>
@@ -323,7 +323,7 @@
  
  
  
-             <!----For Section-------->
+<!----For Section-------->
  <script type="text/javascript">
     $(document).ready(function(){
        var counter = 0;
@@ -408,6 +408,25 @@
         });
     });
     
+</script>
+<script>
+    $(document).ready(function() {
+      $('.imageUpload').on('change', function() {
+        const fileInput = $(this);
+        const file = fileInput[0].files[0];
+        const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+
+        if (file && allowedTypes.indexOf(file.type) === -1) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Please select a valid image file (JPEG, PNG, GIF).',
+          });
+          fileInput.val('');
+          location.reload();
+        }
+      });
+    });
 </script>
 
 <script type="text/javascript">

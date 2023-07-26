@@ -52,16 +52,14 @@ class PropertyController extends Controller
         // Implode or separate and get the data.
         // Amenities before saving as it is multiple select
         $amen = $request->amenities_id;
-        // dd($amen);
         $amenities = implode(",", $amen);
-        // dd($amenities);
     
         $pcode = IDGenerator::generate(['table' => 'properties', 'field'=>'property_code', 'length'=> 5, 'prefix'=>'PC']);
         
         $image = $request->file('property_thumbnail');
         $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
         Image::make($image)->resize(370, 250)->save('upload/property/thumbnail/' . $name_gen);
-        $save_url = 'upload/property/thumbnail/' . $name_gen;
+        $save_url = 'upload/property/thumbnail/'.$name_gen;
     
         // Insert property data and get the inserted property_id
         $property = Property::create([
@@ -156,13 +154,14 @@ class PropertyController extends Controller
         $type           = $property->amenities_id;
         $property_ami   = explode(',', $type);
         
-        // dd($property_ami);
+        $multiImage     = MultiImage::where('property_id', $id)->get();
+        
 
         $propertyType   = PropertyType::latest()->get(); 
         $amenities      = Amenities::latest()->get(); 
         $activeAgent    = User::where('status', 'active')->where('role', 'agent')->latest()->get();
 
-        return view ('backend.property.edit_property', compact('property', 'propertyType','amenities', 'activeAgent', 'property_ami'));
+        return view ('backend.property.edit_property', compact('property', 'propertyType','amenities', 'activeAgent', 'property_ami', 'multiImage'));
 
     }
     /** End of EditProperty Method*/
@@ -223,4 +222,89 @@ class PropertyController extends Controller
 
     }
     /** End of UpdateProperty Method*/
+
+
+    /** End of UpdatePropertyThumbnail Method*/
+    public function UpdatePropertyThumbnail(Request $request)
+    {
+        $pro_id = $request->id;
+        $oldImage = $request->old_img;
+
+        $image = $request->file('property_thumbnail');
+        $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
+        Image::make($image)->resize(370, 250)->save('upload/property/thumbnail/' . $name_gen);
+        $save_url = 'upload/property/thumbnail/'.$name_gen;
+
+        if(file_exists($oldImage))
+        {
+            unlink($oldImage);
+        }
+
+        Property::findorFail($pro_id)->update([
+            'property_thumbnail' => $save_url,
+            'updated_at'         => Carbon::now()
+        ]);
+
+        $notification = array(
+            'message'    => 'Property Image Thumbnail Update Successfully !', 
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
+
+    }
+    /** End of UpdatePropertyThumbnail Method */
+
+    
+    /** End of UpdatePropertyMultiimage Method 
+     * takes the image of logged in users and updates the Images.
+    */
+    public function UpdatePropertyMultiimage(Request $request)
+    {
+            $imgs = $request->multi_img;
+
+            foreach ($imgs as $id => $img) 
+            {
+                $imgdel = MultiImage::findorFail($id);
+                unlink($imgdel->photo_name);
+
+                $make_name = hexdec(uniqid()).'.'.$img->getClientOriginalExtension();
+                Image::make($img)->resize(770,520)->save('upload/property/multi-image/'.$make_name);
+                $uploadPath = 'upload/property/multi-image/'.$make_name;
+
+                MultiImage::where('id', $id)->update([
+                    'photo_name' => $uploadPath,
+                    'updated_at' => Carbon::now(),
+                ]);
+
+                $notification = [
+                    'message'       => 'Multi Image been Updated Sucessfully !',
+                    'alert-type'    => 'success',
+                ];
+
+                return redirect()->back()->with($notification);
+            }
+    }
+    /** End of UpdatePropertyMultiimage Method */
+
+
+/** End of PropertyMultiimageDelete Method 
+ * Gets the id of specific users image and deletes the logged in user selected or images.
+*/
+public function PropertyMultiimageDelete($id)
+{
+    $oldImage = MultiImage::findorFail($id);
+    unlink($oldImage->photo_name);
+
+    MultiImage::findorFail($id)->delete();
+
+    $notification = [
+        'message'    => 'Property Multi Images is been deleted Sucessfully !',
+        'alert-type' => 'success'
+    ];
+
+    return redirect()->back()->with($notification);
+
+}
+/** End of PropertyMultiimageDelete Method */
 }

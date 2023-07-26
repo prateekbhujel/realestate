@@ -229,26 +229,149 @@
     
 
 
+   <!--  /// Property Main Thambnail Image Update //// -->
 
-<!----For Section-------->
- <script type="text/javascript">
-    $(document).ready(function(){
-       var counter = 0;
-       $(document).on("click",".addeventmore",function(){
-             var whole_extra_item_add = $("#whole_extra_item_add").html();
-             $(this).closest(".add_item").append(whole_extra_item_add);
-             counter++;
-       });
-       $(document).on("click",".removeeventmore",function(event){
-             $(this).closest("#whole_extra_item_delete").remove();
-             counter -= 1
-       });
+   <div class="page-content" style="margin-top: -35px;" > 
+
+    <div class="row profile-body"> 
+      <div class="col-md-12 col-xl-12 middle-wrapper">
+        <div class="row">
+
+   <div class="card">
+<div class="card-body">
+    <h6 class="card-title">Edit Main Thumbnail Image </h6>
+
+
+        <form method="post" action="{{ route('update.property.thumbnail') }}" id="myForm" enctype="multipart/form-data">
+            @csrf
+
+        <input type="hidden" name="id" value="{{ $property->id }}">
+        <input type="hidden" name="old_img" value="{{ $property->property_thumbnail }}" >
+
+        <div class="row mb-3">
+            <div class="form-group col-md-6">
+                <label class="form-label">Main Thumbnail </label>
+                <input type="file" name="property_thumbnail" id="imageUpload" class="form-control" onChange="mainThamUrl(this)" accept="image/*" >
+
+                <img src="" id="mainThmb">
+
+            </div>
+
+
+           <div class="form-group col-md-6">
+            <label class="form-label">  </label> 
+            <img src="{{ asset($property->property_thumbnail) }}" style="width:100px; height:100px;">
+        </div>
+    </div><!-- Col -->
+
+<button type="submit" class="btn btn-primary">Save Changes </button>
+
+
+        </form> 
+    </div>
+      </div>
+
+    </div>
+</div>
+</div>
+</div> 
+<!--    /// End  Property Main Thambnail Image Update //// -->
+
+
+
+<!--  /// Start of Property Multi Image Update //// -->
+
+   <div class="page-content" style="margin-top: -35px;" > 
+
+    <div class="row profile-body"> 
+      <div class="col-md-12 col-xl-12 middle-wrapper">
+        <div class="row">
+
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">Edit Multi-Image </h6>
+
+
+                    <form method="post" action="{{ route('update.property.multiimage') }}" id="myForm" enctype="multipart/form-data">
+                        @csrf
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>SN</th>
+                                        <th>Image</th>
+                                        <th>Change Image</th>
+                                        <th>Update / Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($multiImage as $key => $img)
+                                    <tr>
+                                        <td>{{ $key+1 }}</td>
+
+                                        <td class="py-1">
+                                            <img src="{{ asset($img->photo_name) }}" alt="image" style="width: 65px; height: 65px;">
+                                        </td>
+
+                                        <td>
+
+                                            <input type="file" class="form-control text-success" id="imageUpload" name="multi_img[{{ $img->id }}]" accept="image/*">
+                                        </td>
+                                        <td>
+                                            <input type="submit" class="btn btn-primary px-4 btn-sm" value="Update Image">
+
+                                            <a href="{{ route('property.multiimage.delete', $img->id) }}" class="btn btn-danger btn-xs" id="delete">Delete Image</a>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+
+
+        </form> 
+    </div>
+      </div>
+
+    </div>
+</div>
+</div>
+</div> 
+<!--  /// End of Property Multi Image Update //// -->
+
+ 
+<script type="text/javascript">
+    function mainThamUrl(input){
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e){
+                $('#mainThmb').attr('src', e.target.result).width(111).height(111);
+            };
+            reader.readAsDataURL(input.files[0]);
+        };
+    };
+</script>
+
+<script>
+    $(document).ready(function() {
+      $('#imageUpload').on('change', function() {
+        const fileInput = $(this);
+        const file = fileInput[0].files[0];
+        const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+
+        if (file && allowedTypes.indexOf(file.type) === -1) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Please select a valid image file (JPEG, PNG, GIF).',
+          });
+          fileInput.val('');
+          location.reload();
+        }
+      });
     });
- </script>
- <!--========== End of add multiple class with ajax ==============-->
+</script>
 
- 
- 
 <script type="text/javascript">
     $(document).ready(function (){
         $('#myForm').validate({
