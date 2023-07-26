@@ -50,10 +50,10 @@ class PropertyTypeController extends Controller
         ]);
 
         // Toaster Notification
-        $notification = array([
+        $notification = array(
             'message'    => 'Property Type Created Sucessfully !',
             'alert-type' => 'success'
-        ]);
+        );
 
         return redirect()->route('all.type')->with($notification);
     }
@@ -92,10 +92,10 @@ class PropertyTypeController extends Controller
         ]);
 
         // Toaster Notification
-        $notification = array([
+        $notification = array(
             'message'    => 'Property Type Updated Sucessfully !',
             'alert-type' => 'success'
-        ]);
+        );
 
         return redirect()->route('all.type')->with($notification);
 
@@ -112,10 +112,10 @@ class PropertyTypeController extends Controller
         PropertyType::findorFail($id)->delete();
 
         // Toaster Notification
-        $notification = array([
+        $notification = array(
             'message'    => 'Property Type Deleted Sucessfully !',
             'alert-type' => 'success'
-        ]);
+        );
 
         return redirect()->back()->with($notification);
     }
@@ -165,10 +165,10 @@ class PropertyTypeController extends Controller
         ]);
 
         // Toaster Notification
-        $notification = array([
+        $notification = array(
             'message'    => 'Amenities Created Sucessfully !',
             'alert-type' => 'success'
-        ]);
+        );
 
         return redirect()->route('all.amenities')->with($notification);
     }
@@ -194,8 +194,6 @@ class PropertyTypeController extends Controller
     public function UpdateAmenities(Request $request)
     {
         // dd($request->id, $request->amenities_name);
-
-
         $ame_id = $request->id; //Set as hiddent field and passing it to update the data of specific users
 
         // Inserting into Database 
@@ -203,10 +201,10 @@ class PropertyTypeController extends Controller
             'amenities_name' => $request->amenities_name,
         ]);
         // Toaster Notification
-        $notification = array([
+        $notification = array(
             'message'    => 'Amenities Updated Sucessfully !',
             'alert-type' => 'success'
-        ]);
+        );
 
         return redirect()->route('all.amenities')->with($notification);
 
@@ -223,10 +221,10 @@ class PropertyTypeController extends Controller
         Amenities::findorFail($id)->delete();
 
         // Toaster Notification
-        $notification = array([
+        $notification = array(
             'message'    => 'Amenities Deleted Sucessfully !',
             'alert-type' => 'success'
-        ]);
+        );
 
         return redirect()->back()->with($notification);
     }

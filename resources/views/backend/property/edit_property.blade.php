@@ -21,7 +21,7 @@
                                     <div class="form-group mb-3">
                                         <label class="form-label">Property Name</label>
                                         <span class="text-danger"> * </span>
-                                        <input type="text" name="property_name" class="form-control" placeholder="Enter Property Name">
+                                        <input type="text" name="property_name" class="form-control" value="{{ $property->property_name }}" placeholder="Enter Property Name">
                                     </div>
                                 </div><!-- Col -->
                                 <div class="col-sm-6">
@@ -30,8 +30,8 @@
                                         <span class="text-danger"> * </span>
                                         <select name="property_status" id="exampleFormControlSelect1" class="form-select">
                                             <option selected="" disabled="">-- Select Status --</option>
-                                            <option value="rent">For Rent</option>
-                                            <option value="buy">For Buy</option>
+                                            <option value="rent" {{ $property->property_status == 'rent' ? 'selected' : '' }}>For Rent</option>
+                                            <option value="buy" {{ $property->property_status == 'buy' ? 'selected' : '' }}>For Buy</option>
                                         </select>
                                     </div>
                                 </div><!-- Col -->
@@ -40,7 +40,7 @@
                                     <div class="form-group mb-3">
                                         <label class="form-label">Lowest Price</label>
                                         <span class="text-danger"> * </span>
-                                        <input type="text" name="lowest_price" class="form-control" placeholder="Lowest Price of Property">
+                                        <input type="text" name="lowest_price" class="form-control"  value="{{ $property->lowest_price }}"placeholder="Lowest Price of Property">
                                     </div>
                                 </div><!-- Col -->  
                                 
@@ -48,33 +48,9 @@
                                     <div class="form-group mb-3">
                                         <label class="form-label">Maximum Price</label>
                                         <span class="text-danger"> * </span>
-                                        <input type="text" name="max_price" class="form-control" placeholder="Maximum Price of  Property">
+                                        <input type="text" name="max_price" class="form-control"  value="{{ $property->max_price }}"placeholder="Maximum Price of  Property">
                                     </div>
                                 </div>
-
-                                <div class="col-sm-6">
-                                    <div class="form-group mb-3">
-                                        <label class="form-label">Main Thumbnail Image</label>
-                                        <span class="text-danger"> * </span>
-                                        <input type="file" name="property_thumbnail" class="form-control" onChange="mainThumbnailUrl(this)" >
-
-                                        <img src="" id="mainThmb">
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-6">
-                                    <div class="form-group mb-3">
-                                        <label class="form-label">Multiple Image</label>
-                                        <span class="text-danger"> * </span>
-                                        <p class="text-muted">Press CTRL and select Image</p>
-                                        <input type="file" name="multi_img[]" class="form-control" id="multiImg" multiple="">
-
-                                        <div class="row" id="preview_img"></div>
-                                    </div>
-                                </div><!-- Col -->
-
-                                
-
 
                             </div><!-- Row -->
 
@@ -83,25 +59,25 @@
                                 <div class="col-sm-3">
                                     <div class="mb-3">
                                         <label class="form-label">No. of Bedrooms</label>
-                                        <input type="text" name="bedrooms" class="form-control" placeholder="Number of Bathrooms">
+                                        <input type="text" name="bedrooms" class="form-control"  value="{{ $property->bedrooms }}"placeholder="Number of Bathrooms">
                                     </div>
                                 </div><!-- Col -->
                                 <div class="col-sm-3">
                                     <div class="mb-3">
                                         <label class="form-label">No. of Bathrooms</label>
-                                        <input type="text" name="bathrooms" class="form-control" placeholder="Number of Bathrooms">
+                                        <input type="text" name="bathrooms" class="form-control"  value="{{ $property->bathrooms }}"placeholder="Number of Bathrooms">
                                     </div>
                                 </div><!-- Col -->
                                 <div class="col-sm-3">
                                     <div class="mb-3">
                                         <label class="form-label">No. of Garage</label>
-                                        <input type="text" name="garage" class="form-control" placeholder="Number of Garage">
+                                        <input type="text" name="garage" class="form-control"  value="{{ $property->garage }}"placeholder="Number of Garage">
                                     </div>
                                 </div><!-- Col -->
                                 <div class="col-sm-3">
                                     <div class="mb-3">
                                         <label class="form-label">Garage Size</label>
-                                        <input type="text" name="garage_size" class="form-control" placeholder="Size of Garage">
+                                        <input type="text" name="garage_size" class="form-control"  value="{{ $property->garage_size }}"placeholder="Size of Garage">
                                     </div>
                                 </div><!-- Col -->
                             </div><!-- Row -->
@@ -111,25 +87,25 @@
                                 <div class="col-sm-3">
                                     <div class="mb-3">
                                         <label class="form-label">Address</label>
-                                        <input type="text" name="address" class="form-control" placeholder="Adress Name">
+                                        <input type="text" name="address" class="form-control"  value="{{ $property->address }}"placeholder="Adress Name">
                                     </div>
                                 </div><!-- Col -->
                                 <div class="col-sm-3">
                                     <div class="mb-3">
                                         <label class="form-label">City</label>
-                                        <input type="text" name="city" class="form-control" placeholder="Name of City">
+                                        <input type="text" name="city" class="form-control" value="{{ $property->city }}" placeholder="Name of City">
                                     </div>
                                 </div><!-- Col -->
                                 <div class="col-sm-3">
                                     <div class="mb-3">
                                         <label class="form-label">State</label>
-                                        <input type="text" name="state" class="form-control" placeholder="Name of State">
+                                        <input type="text" name="state" class="form-control"  value="{{ $property->state }}"placeholder="Name of State">
                                     </div>
                                 </div><!-- Col -->
                                 <div class="col-sm-3">
                                     <div class="mb-3">
                                         <label class="form-label">Postal Code</label>
-                                        <input type="text" name="postal_code" class="form-control" placeholder="Postal Code">
+                                        <input type="text" name="postal_code" class="form-control"  value="{{ $property->postal_code }}"placeholder="Postal Code">
                                     </div>
                                 </div><!-- Col -->
                             </div><!-- Row -->
@@ -138,29 +114,28 @@
                                 <div class="col-sm-4">
                                     <div class="mb-3">
                                         <label class="form-label">Property Size</label>
-                                        <input type="text" name="property_size" class="form-control" placeholder="Size of The Property">
+                                        <input type="text" name="property_size" class="form-control"  value="{{ $property->property_size }}"placeholder="Size of The Property">
                                     </div>
                                 </div><!-- Col -->
                                 <div class="col-sm-4">
                                     <div class="mb-3">
                                         <label class="form-label">Property Video</label>
-                                        <input type="text" name="property_video" class="form-control" placeholder="Link to the Video(Youtbe, Vimeo)">
+                                        <input type="text" name="property_video" class="form-control"  value="{{ $property->property_video }}"placeholder="Link to the Video(Youtbe, Vimeo)">
                                     </div>
                                 </div><!-- Col -->
                                 <div class="col-sm-4">
                                     <div class="mb-3">
                                         <label class="form-label">Neighborhood</label>
-                                        <input type="text" name="neighborhood" class="form-control" placeholder="Near By Neighborhood">
+                                        <input type="text" name="neighborhood" class="form-control"  value="{{ $property->neighborhood }}"placeholder="Near By Neighborhood">
                                     </div>
                                 </div><!-- Col -->
                             </div><!-- Row -->
                             
                             <div class="row">
-
                                 <div class="col-sm-6">
                                     <div class="mb-3">
                                         <label class="form-label">Latitude</label>
-                                        <input type="text" name="latitude" class="form-control" placeholder="Enter the Latitude for the map">
+                                        <input type="text" name="latitude" class="form-control"  value="{{ $property->latitude }}"placeholder="Enter the Latitude for the map">
                                         <a href="https://www.latlong.net/" target="_blank">Get Your latitude of your address from here</a>
                                     </div>
                                 </div><!-- Col -->
@@ -168,11 +143,10 @@
                                 <div class="col-sm-6">
                                     <div class="mb-3">
                                         <label class="form-label">Longitude</label>
-                                        <input type="text" name="longitude" class="form-control" placeholder="Enter The Longitude for the map">
+                                        <input type="text" name="longitude" class="form-control"  value="{{ $property->longitude }}"placeholder="Enter The Longitude for the map">
                                         <a href="https://www.latlong.net/" target="_blank">Get Your longitude of your address from here</a>
                                     </div>
                                 </div><!-- Col -->
-                                
                             </div><!-- Row -->
 
                             <div class="row">
@@ -183,7 +157,7 @@
                                         <select name="ptype_id" id="exampleFormControlSelect1" class="form-select">
                                             <option selected="" disabled="">-- Select Propery Type --</option>
                                             @foreach ($propertyType as $ptype)
-                                                <option value="{{ $ptype->id}}"> {{ $ptype->type_name}}</option>
+                                                <option value="{{ $ptype->id}}" {{ $ptype->id == $property->ptype_id ? 'selected' : '' }}> {{ $ptype->type_name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -193,7 +167,7 @@
                                         <label class="form-label">Property Amenities</label>
                                         <select name="amenities_id[]" class="js-example-basic-multiple form-select" multiple="multiple" data-width="100%">
                                             @foreach ($amenities as $ameni)
-                                                <option value="{{ $ameni->id }}">{{ $ameni->amenities_name  }}</option>
+                                                <option value="{{ $ameni->id }}" {{ (in_array($ameni->id, $property_ami)) ? 'selected' : '' }}> {{ $ameni->amenities_name  }} </option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -204,7 +178,7 @@
                                         <select name="agent" id="exampleFormControlSelect1" class="form-select">
                                             <option selected="" disabled="">-- Select Agent --</option>
                                             @foreach ($activeAgent as $agent)
-                                                <option value="{{ $agent->id}}"> {{ $agent->name}}</option>
+                                                <option value="{{ $agent->id}}" {{ $agent->id == $property->agent_id  ? 'selected' : '' }}> {{ $agent->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -214,13 +188,13 @@
                             <div class="col-sm-12">
                                 <div class="mb-3">
                                     <label class="form-label">Short Description</label>
-                                    <textarea name="short_descp" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    <textarea name="short_descp" class="form-control" id="exampleFormControlTextarea1" rows="3">{{ $property->short_descp }}</textarea>
                                 </div>
                             </div>
                             <div class="col-sm-12">
                                 <div class="mb-3">
                                     <label class="form-label">Long Description</label>
-                                    <textarea name="long_descp" class="form-control" name="tinymce" id="tinymceExample" rows="10"></textarea>
+                                    <textarea name="long_descp" class="form-control" name="tinymce" id="tinymceExample" rows="10">{!! $property->long_descp !!}</textarea>
                                 </div>
                             </div>
                             
@@ -229,47 +203,17 @@
                             <div class="mb-3">
                                 <div class="form-check form-check-inline">
                                     <label class="form-check-label" for="checkFeatured">Featured Property
-                                        <input type="checkbox" name="featured" value="1" class="form-check-input" id="checkFeatured">
+                                        <input type="checkbox" name="featured" value="1" class="form-check-input" id="checkFeatured" {{ $property->featured == '1' ? 'checked' : '' }}>
                                     </label>
                                 </div>
 
                                 <div class="form-check form-check-inline">
                                     <label class="form-check-label" for="checkHot">Hot Property
-                                        <input type="checkbox" name="hot" value="1" class="form-check-input" id="checkHot">
+                                        <input type="checkbox" name="hot" value="1" class="form-check-input" id="checkHot" {{ $property->hot == '1' ? 'checked' : '' }}>
                                     </label>
                                 </div>
                             </div>
 
-                            <div class="row add_item">
-                                <div class="col-md-4">
-                                      <div class="mb-3">
-                                            <label for="facility_name" class="form-label">Facilities </label>
-                                            <select name="facility_name[]" id="facility_name" class="form-control">
-                                                  <option value="">Select Facility</option>
-                                                  <option value="Hospital">Hospital</option>
-                                                  <option value="SuperMarket">Super Market</option>
-                                                  <option value="School">School</option>
-                                                  <option value="Entertainment">Entertainment</option>
-                                                  <option value="Pharmacy">Pharmacy</option>
-                                                  <option value="Airport">Airport</option>
-                                                  <option value="Railways">Railways</option>
-                                                  <option value="Bus Stop">Bus Stop</option>
-                                                  <option value="Beach">Beach</option>
-                                                  <option value="Mall">Mall</option>
-                                                  <option value="Bank">Bank</option>
-                                            </select>
-                                      </div>
-                                </div>
-                                <div class="col-md-4">
-                                      <div class="mb-3">
-                                            <label for="distance" class="form-label"> Distance </label>
-                                            <input type="text" name="distance[]" id="distance" class="form-control" placeholder="Distance (Km)">
-                                      </div>
-                                </div>
-                                <div class="form-group col-md-4" style="padding-top: 30px;">
-                                      <a class="btn btn-success addeventmore"><i class="fa fa-plus-circle"></i> Add More..</a>
-                                </div>
-                         </div> <!---end row-->
                 
                          <button type="submit" class="btn btn-primary my-4">Save Changes</button>
                         </form>
@@ -283,47 +227,8 @@
     
 
 
- <!--========== Start of add multiple class with ajax ==============-->
- <div style="visibility: hidden">
-    <div class="whole_extra_item_add" id="whole_extra_item_add">
-       <div class="whole_extra_item_delete" id="whole_extra_item_delete">
-          <div class="container mt-2">
-             <div class="row">
-               
-                <div class="form-group col-md-4 mb-3">
-                   <label for="facility_name">Facilities</label>
-                   <select name="facility_name[]" id="facility_name" class="form-control">
-                         <option value="">Select Facility</option>
-                         <option value="Hospital">Hospital</option>
-                         <option value="SuperMarket">Super Market</option>
-                         <option value="School">School</option>
-                         <option value="Entertainment">Entertainment</option>
-                         <option value="Pharmacy">Pharmacy</option>
-                         <option value="Airport">Airport</option>
-                         <option value="Railways">Railways</option>
-                         <option value="Bus Stop">Bus Stop</option>
-                         <option value="Beach">Beach</option>
-                         <option value="Mall">Mall</option>
-                         <option value="Bank">Bank</option>
-                   </select>
-                </div>
-                <div class="form-group col-md-4">
-                   <label for="distance">Distance</label>
-                   <input type="text" name="distance[]" id="distance" class="form-control" placeholder="Distance (Km)">
-                </div>
-                <div class="form-group col-md-4" style="padding-top: 20px">
-                   <span class="btn btn-success btn-sm addeventmore"><i class="fa fa-plus-circle">Add</i></span>
-                   <span class="btn btn-danger btn-sm removeeventmore"><i class="fa fa-minus-circle">Remove</i></span>
-                </div>
-             </div>
-          </div>
-       </div>
-    </div>
- </div>      
- 
- 
- 
-             <!----For Section-------->
+
+<!----For Section-------->
  <script type="text/javascript">
     $(document).ready(function(){
        var counter = 0;
