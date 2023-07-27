@@ -13,6 +13,7 @@ use App\Models\User;
 use Intervention\Image\Facades\Image;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Carbon\Carbon;
+use PHPUnit\Framework\Constraint\Count;
 
 class PropertyController extends Controller
 {
@@ -144,12 +145,14 @@ class PropertyController extends Controller
     /** End of StoreProperty Method*/
 
 
-    /** End of EditProperty Method 
+    /** Start of EditProperty Method 
      * Puts the value into the field and return the view
     */
     public function EditProperty($id)
     {
-        $property = Property::findorfail($id);
+        $facility       = Facility::where('property_id', $id)->get();
+
+        $property       = Property::findorfail($id);
 
         $type           = $property->amenities_id;
         $property_ami   = explode(',', $type);
@@ -161,7 +164,7 @@ class PropertyController extends Controller
         $amenities      = Amenities::latest()->get(); 
         $activeAgent    = User::where('status', 'active')->where('role', 'agent')->latest()->get();
 
-        return view ('backend.property.edit_property', compact('property', 'propertyType','amenities', 'activeAgent', 'property_ami', 'multiImage'));
+        return view ('backend.property.edit_property', compact('property', 'propertyType','amenities', 'activeAgent', 'property_ami', 'multiImage', 'facility'));
 
     }
     /** End of EditProperty Method*/
@@ -288,23 +291,208 @@ class PropertyController extends Controller
     /** End of UpdatePropertyMultiimage Method */
 
 
-/** End of PropertyMultiimageDelete Method 
- * Gets the id of specific users image and deletes the logged in user selected or images.
-*/
-public function PropertyMultiimageDelete($id)
-{
-    $oldImage = MultiImage::findorFail($id);
-    unlink($oldImage->photo_name);
+    /** End of PropertyMultiimageDelete Method 
+     * Gets the id of specific users image and deletes the logged in user selected or images.
+    */
+    public function PropertyMultiimageDelete($id)
+    {
+        $oldImage = MultiImage::findorFail($id);
+        unlink($oldImage->photo_name);
 
-    MultiImage::findorFail($id)->delete();
+        MultiImage::findorFail($id)->delete();
 
-    $notification = [
-        'message'    => 'Property Multi Images is been deleted Sucessfully !',
-        'alert-type' => 'success'
-    ];
+        $notification = [
+            'message'    => 'Property Multi Images is been deleted Sucessfully !',
+            'alert-type' => 'success'
+        ];
 
-    return redirect()->back()->with($notification);
+        return redirect()->back()->with($notification);
 
-}
-/** End of PropertyMultiimageDelete Method */
+    }
+    /** End of PropertyMultiimageDelete Method */
+
+
+    /** Start of StoreNewMultiimage Method 
+     * While editing the Image it simply adds more if users wants to add into multi Image portion
+    */
+    public function StoreNewMultiimage(Request $request)
+    {
+            $new_multi_img_id = $request->imageid;
+            // dd('test');
+            $image = $request->file('multi_img');
+
+            $make_name = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+            Image::make($image)->resize(770,520)->save('upload/property/multi-image/'.$make_name);
+            $uploadPath = 'upload/property/multi-image/'.$make_name;
+
+            MultiImage::insert([
+                'property_id' => $new_multi_img_id,
+                'photo_name' => $uploadPath,
+                'created_at' => Carbon::now(),
+            ]);
+
+            $notification = [
+                'message' => 'Porperty Multi Image Added Successfully !',
+                'alert-type' => 'success'
+            ];
+
+            return redirect()->back()->with($notification);
+
+    }
+    /** End of StoreNewMultiimage Method */
+
+
+
+    /** Start of UpdatePropertyFacilities Method 
+     * Updates the Facilities Field and Save it into DataBase.
+    */
+    public function UpdatePropertyFacilities(Request $request)
+    {
+        $pid = $request->id;
+
+        if($request->facility_name == NULL)
+        {
+            return redirect()->back();
+        }
+        else
+        {
+            Facility::where('property_id', $pid)->delete();
+
+            $facilities = Count($request->facility_name);
+            
+                for ($i=0; $i < $facilities; $i++) { 
+                    $fcount                 = new Facility();
+                    $fcount->property_id    = $pid;
+                    $fcount->facility_name  = $request->facility_name[$i];
+                    $fcount->distance       = $request->distance[$i];
+                    $fcount->save();
+                }//end for  
+        }
+
+        $notification = [
+            'message' => 'Property Facility Updated Successfully !',
+            'alert-type'=> 'success',
+        ];
+
+        return redirect()->back()->with($notification);
+    }
+    /** End of UpdatePropertyFacilities Method. */
+
+
+    /** Start of DeleteProperty Method. 
+     * Deletes the data from all tables.
+     * Facilities,Properties, Multiimages(all fields related Id)
+    */
+    public function DeleteProperty($id)
+    {
+        //For porperties table.
+        // For Thumbnail Image
+        $property = Property::findorFail($id);
+        unlink($property->property_thumbnail);
+
+        Property::findorFail($id)->delete();
+
+        // For multi_images table
+        $multi_images = MultiImage::where('property_id', $id)->get();
+
+        foreach($multi_images as $img)
+        {
+            unlink($img->photo_name);
+            MultiImage::where('property_id', $id)->delete();
+        }
+
+        //For facilities table
+        $facilitiesData = Facility::where('property_id', $id)->get();
+        foreach($facilitiesData as $data)
+        {
+            $data->facility_name;
+            Facility::where('property_id', $id)->delete();
+        }
+
+        $notification = [
+            'message' => "Property Data Delete Successfully !",
+            'alert-type' => 'success',
+        ];
+
+        return redirect()->back()->with($notification);
+    }
+    /** End of DeleteProperty Method. */
+
+
+    /** Start of DetailsProperty Method. 
+     * Gets the requested id details and returns to the User.
+    */
+    public function DetailsProperty($id)
+    {
+
+        $facilities = Facility::where('property_id',$id)->get();
+        $property = Property::findOrFail($id);
+
+        $type = $property->amenities_id;
+        $property_ami = explode(',', $type);
+
+        $multiImage = MultiImage::where('property_id',$id)->get();
+
+        $propertytype = PropertyType::latest()->get();
+        $amenities = Amenities::latest()->get();
+        $activeAgent = User::where('status','active')->where('role','agent')->latest()->get();
+
+        return view('backend.property.details_property',compact('property','propertytype','amenities','activeAgent','property_ami','multiImage','facilities'));
+
+    }
+
+    /** End of DetailsProperty Method. */
+
+
+
+    /** Start of InactiveProperty Method. 
+     * Makes the product inactive if it's active.
+    */
+    public function InactiveProperty(Request $request)
+    {
+        $pid = $request->id;
+
+        Property::findOrFail($pid)->update([
+            'status' => 0,
+        ]);
+        
+        $notification    = array(
+            'message'    => 'Property Made Inactive Successfully !',
+            'alert-type' => 'success',
+        );
+
+        return redirect()->route('all.property')->with($notification);
+
+    }
+    /** End of InactiveProperty Method. */
+
+
+    /** Start of ActiveProperty Method. 
+     * Makes the Product incase of inactive to active.
+    */
+    public function ActiveProperty(Request $request){
+
+        $pid = $request->id;
+        Property::findOrFail($pid)->update([
+
+            'status' => 1,
+
+        ]);
+
+      $notification = array(
+            'message' => 'Property made Active Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('all.property')->with($notification); 
+
+
+    }
+    /** End of InactiveProperty Method. */
+
+
+
+
+
+
 }

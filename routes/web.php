@@ -103,6 +103,17 @@ Route::middleware(['auth','role:admin'])->group(function(){ // from laravel 9 an
         
         Route::get('/property_multiimage_delete/{id}', 'PropertyMultiimageDelete')->name('property.multiimage.delete');
 
+        Route::post('/property_store_new_multiimage', 'StoreNewMultiimage')->name('store.new.multiimage');
+
+        Route::post('/update_property_facilities', 'UpdatePropertyFacilities')->name('update.property.facilities');
+
+        Route::get('/delete_property/{id}', 'DeleteProperty')->name('delete.property');
+
+        Route::get('/details_property/{id}', 'DetailsProperty')->name('details.property');
+
+        Route::post('/inactive_property', 'InactiveProperty')->name('inactive.property');
+
+        Route::post('/active/property', 'ActiveProperty')->name('active.property');
 
     }); // End Property Route.
 

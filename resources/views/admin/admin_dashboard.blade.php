@@ -48,6 +48,14 @@
   <link rel="stylesheet" type="text/css" href="{{ asset('backend/assets/css/toastr.css') }}" >
   {{-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" > --}}
 
+ {{-- Start of Custom style of data-feather  --}}
+  <style>
+	.feather-16{
+	  width: 16px;
+	  height: 16px;
+  }
+  </style>
+ {{-- End of  style of data-feather  --}}
 </head>
 <body>
 	<div class="main-wrapper">

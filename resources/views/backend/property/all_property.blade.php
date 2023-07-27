@@ -1,5 +1,6 @@
 @extends('admin.admin_dashboard')
 @section('admin')
+
 <div class="page-content">
 
     <nav class="page-breadcrumb">
@@ -48,8 +49,9 @@
                 @endif  
               </td>
               <td>
-                <a href="{{ route('edit.property', $item->id)}}" class ="btn btn-inverse-warning btn-sm">Edit</i></a>     
-                <a href="{{ route('delete.type', $item->id) }}" class="btn btn-inverse-danger btn-sm ml-4" id="delete">Delete</i></a>     
+                <a href="{{ route('details.property', $item->id)}}" class ="btn btn-inverse-info btn-sm" title="Details"><i class="feather-16" data-feather="eye"></i></a>     
+                <a href="{{ route('edit.property', $item->id)}}" class ="btn btn-inverse-warning btn-sm" title="Edit"><i class="feather-16" data-feather="edit"></i></a>     
+                <a href="{{ route('delete.property', $item->id) }}" class="btn btn-inverse-danger btn-sm ml-4" id="delete" title="Delete"><i class="feather-16" data-feather="trash-2"></i></a>     
             </td>
             </tr>
             @endforeach

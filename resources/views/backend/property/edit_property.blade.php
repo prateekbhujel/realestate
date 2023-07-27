@@ -232,17 +232,20 @@
    <!--  /// Property Main Thambnail Image Update //// -->
 
    <div class="page-content" style="margin-top: -35px;" > 
-
+    
     <div class="row profile-body"> 
+        <p class="text-danger text-center my-4">*** Note: If you do not want to make changes to the Thumbnail Image, Multiple Images, or Facilities, simply click "Save Changes" above to avoid errors! ***</p>
       <div class="col-md-12 col-xl-12 middle-wrapper">
         <div class="row">
 
    <div class="card">
+
 <div class="card-body">
     <h6 class="card-title">Edit Main Thumbnail Image </h6>
 
 
-        <form method="post" action="{{ route('update.property.thumbnail') }}" id="myForm" enctype="multipart/form-data">
+
+        <form method="post" action="{{ route('update.property.thumbnail') }}" id="myForm" enctype="multipart/form-data"  onsubmit="return validateForm()">
             @csrf
 
         <input type="hidden" name="id" value="{{ $property->id }}">
@@ -292,7 +295,7 @@
                     <h6 class="card-title">Edit Multi-Image </h6>
 
 
-                    <form method="post" action="{{ route('update.property.multiimage') }}" id="myForm" enctype="multipart/form-data">
+                    <form method="post" action="{{ route('update.property.multiimage') }}" id="myForm" enctype="multipart/form-data"  onsubmit="return validateForm()">
                         @csrf
                         <div class="table-responsive">
                             <table class="table table-striped">
@@ -315,10 +318,10 @@
 
                                         <td>
 
-                                            <input type="file" class="form-control text-success" id="imageUpload" name="multi_img[{{ $img->id }}]" accept="image/*">
+                                            <input type="file" class="form-control text-success" id="imageUpload" value="{{ 'test'}}" name="multi_img[{{ $img->id }}]" accept="image/*">
                                         </td>
                                         <td>
-                                            <input type="submit" class="btn btn-primary px-4 btn-sm" value="Update Image">
+                                            <input type="submit" class="btn btn-primary px-4 btn-xs" value="Update Image">
 
                                             <a href="{{ route('property.multiimage.delete', $img->id) }}" class="btn btn-danger btn-xs" id="delete">Delete Image</a>
                                         </td>
@@ -330,6 +333,28 @@
 
 
         </form> 
+
+
+
+        <form method="POST" action="{{ route('store.new.multiimage') }}" id="myForm" class="my-4" enctype="multipart/form-data"  onsubmit="return validateForm()">
+            @csrf
+
+            <input type="hidden" name="imageid" value="{{ $property->id }}">
+            <table class="table table-striped">
+                <tbody>
+                    
+            <tr>
+                <td>
+                    <input type="file" class="form-control multiImg" id="imageUpload" name="multi_img" accept="image/*">
+                </td>
+                <td>
+                    <input type="submit" class="btn btn-info btn-xs px-4" value="Add Image">
+                </td>
+            </tr>
+            
+        </tbody>
+    </table>
+        </form>
     </div>
       </div>
 
@@ -339,7 +364,138 @@
 </div> 
 <!--  /// End of Property Multi Image Update //// -->
 
+   <!--  /// Start of facility Update //// -->
+
+   <div class="page-content" style="margin-top: -35px;" > 
+    
+    <div class="row profile-body"> 
+      <div class="col-md-12 col-xl-12 middle-wrapper">
+        <div class="row">
+
+   <div class="card">
+
+<div class="card-body">
+    <h6 class="card-title">Edit Property Facility </h6>
+
+        <form method="post" action="{{ route('update.property.facilities') }}" id="myForm" enctype="multipart/form-data">
+            @csrf
+
+            <input type="hidden" name="id" value="{{ $property->id }}">
+
+           @foreach ($facility as $item)
+           <div class="row add_item">
+            <div class="whole_extra_item_add" id="whole_extra_item_add">
+            <div class="whole_extra_item_delete" id="whole_extra_item_delete">
+            <div class="container mt-2">
+               <div class="row">
+                 
+                  <div class="form-group col-md-4 mb-3">
+                     <label for="facility_name">Facilities</label>
+                     <select name="facility_name[]" id="facility_name" class="form-control">
+                           <option value="">Select Facility</option>
+                           <option value="Hospital" {{ $item->facility_name == 'Hospital' ? 'selected': ''}}>Hospital</option>
+                           <option value="SuperMarket" {{ $item->facility_name == 'SuperMarket' ? 'selected': ''}}>Super Market</option>
+                           <option value="School" {{ $item->facility_name == 'School' ? 'selected': ''}}>School</option>
+                           <option value="Entertainment" {{ $item->facility_name == 'Entertainment' ? 'selected': ''}}>Entertainment</option>
+                           <option value="Pharmacy" {{ $item->facility_name == 'Pharmacy' ? 'selected': ''}}>Pharmacy</option>
+                           <option value="Airport" {{ $item->facility_name == 'Airport' ? 'selected': ''}}>Airport</option>
+                           <option value="Railways" {{ $item->facility_name == 'Railways' ? 'selected': ''}}>Railways</option>
+                           <option value="Bus Stop" {{ $item->facility_name == 'Bus Stop' ? 'selected': ''}}>Bus Stop</option>
+                           <option value="Beach" {{ $item->facility_name == 'Beach' ? 'selected': ''}}>Beach</option>
+                           <option value="Mall" {{ $item->facility_name == 'Mall' ? 'selected': ''}}>Mall</option>
+                           <option value="Bank" {{ $item->facility_name == 'Bank' ? 'selected': ''}}>Bank</option>
+                     </select>
+                  </div>
+                  <div class="form-group col-md-4">
+                     <label for="distance">Distance</label>
+                     <input type="text" name="distance[]" value="{{ $item->distance }}" id="distance" class="form-control" placeholder="Distance (Km)">
+                  </div>
+                  <div class="form-group col-md-4" style="padding-top: 20px">
+                     <span class="btn btn-success btn-sm addeventmore"><i class="fa fa-plus-circle">Add</i></span>
+                     <span class="btn btn-danger btn-sm removeeventmore"><i class="fa fa-minus-circle">Remove</i></span>
+                  </div>
+               </div>
+            </div>
+         </div>
+         </div>
+        </div>
+           @endforeach
+           <br>
+         <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form> 
+    </div>
+      </div>
+
+    </div>
+</div>
+</div>
+</div> 
+<!--    /// End  of Facility Update //// -->
+
+
+
+  <!--========== Start of add multiple class with ajax ==============-->
+  <div style="visibility: hidden">
+    <div class="whole_extra_item_add" id="whole_extra_item_add">
+       <div class="whole_extra_item_delete" id="whole_extra_item_delete">
+          <div class="container mt-2">
+             <div class="row">
+               
+                <div class="form-group col-md-4 mb-3">
+                   <label for="facility_name">Facilities</label>
+                   <select name="facility_name[]" id="facility_name" class="form-control">
+                         <option value="">Select Facility</option>
+                         <option value="Hospital">Hospital</option>
+                         <option value="SuperMarket">Super Market</option>
+                         <option value="School">School</option>
+                         <option value="Entertainment">Entertainment</option>
+                         <option value="Pharmacy">Pharmacy</option>
+                         <option value="Airport">Airport</option>
+                         <option value="Railways">Railways</option>
+                         <option value="Bus Stop">Bus Stop</option>
+                         <option value="Beach">Beach</option>
+                         <option value="Mall">Mall</option>
+                         <option value="Bank">Bank</option>
+                   </select>
+                </div>
+                <div class="form-group col-md-4">
+                   <label for="distance">Distance</label>
+                   <input type="text" name="distance[]" id="distance" class="form-control" placeholder="Distance (Km)">
+                </div>
+                <div class="form-group col-md-4" style="padding-top: 20px">
+                   <span class="btn btn-success btn-sm addeventmore"><i class="fa fa-plus-circle">Add</i></span>
+                   <span class="btn btn-danger btn-sm removeeventmore"><i class="fa fa-minus-circle">Remove</i></span>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+ </div>      
  
+ 
+ 
+<!----For Section-------->
+ <script type="text/javascript">
+    $(document).ready(function(){
+       var counter = 0;
+       $(document).on("click",".addeventmore",function(){
+             var whole_extra_item_add = $("#whole_extra_item_add").html();
+             $(this).closest(".add_item").append(whole_extra_item_add);
+             counter++;
+       });
+       $(document).on("click",".removeeventmore",function(event){
+            if(counter > 0 ){
+                $(this).closest("#whole_extra_item_delete").remove();
+                counter -= 1
+            }
+            else{
+                alert("Cannot remove this field as it is the last one. Please keep at least one field filled out.");
+            }
+       });
+    });
+ </script>
+ <!--========== End of add multiple class with ajax ==============-->
+
 <script type="text/javascript">
     function mainThamUrl(input){
         if (input.files && input.files[0]) {
@@ -481,5 +637,19 @@
     });
      
     </script>
+<script>
+    function validateForm() {
+        // Validate the main thumbnail image
+        var thumbnailInput = document.getElementById('imageUpload');
+        if (thumbnailInput.value === '') {
+            alert('Please Select an Image to Save Changes or Update !');
+            return false;
+        }
+
+
+        // Validation passed, allow form submission
+        return true;
+    }
+</script>
 
 @endsection
