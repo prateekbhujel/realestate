@@ -7,6 +7,7 @@ use App\Http\Controllers\AgentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Backend\PropertyTypeController;
 use App\Http\Controllers\Backend\PropertyController;
+use App\Http\Middleware\RedirectIfAuthenticated;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -60,7 +61,9 @@ Route::middleware(['auth','role:agent'])->group(function(){
     Route::get('/agent/dashboard', [AgentController::class, 'AgentController'])->name('agent.dashboard');
 }); // End Group Agent Middleware
 
-Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login');
+Route::get('/agent/login', [AgentController::class, 'AgentLogin'])->name('agent.login')->middleware(RedirectIfAuthenticated::class);
+
+Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login')->middleware(RedirectIfAuthenticated::class);
 
 
 // Property Type All Route Start

@@ -45,12 +45,6 @@
 
                         </div>
                         <div class="tabs-box">
-                            <div class="tab-btn-box">
-                                <ul class="tab-btns tab-buttons centred clearfix">
-                                    <li class="tab-btn active-btn" data-tab="#tab-1">Login</li>
-                                    <li class="tab-btn" data-tab="#tab-2">Register</li>
-                                </ul>
-                            </div>
     <div class="tabs-content">
         <div class="tab active-tab" id="tab-1">
             <div class="inner-box">
@@ -76,7 +70,7 @@
         </div>
         <div class="tab" id="tab-2">
             <div class="inner-box">
-                <h4>Register Now</h4>
+                <h4>Agent Register</h4>
                 <form action="{{ route('register') }}" method="POST" class="default-form">
                     @csrf
                     <div class="form-group">
@@ -100,10 +94,9 @@
                         <input type="password" name="password_confirmation" id="password_confirmation" required="" placeholder="Password and Confirm Password Should be Same !">
                     </div>
                     <div class="form-group message-btn">
-                        <button type="submit" class="theme-btn btn-one">Register !</button>
+                        <button type="submit" class="theme-btn btn-one">Register as an Agent !</button>
                     </div>
                 </form>
-
             </div>
         </div>
     </div>
