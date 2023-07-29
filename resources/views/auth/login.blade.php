@@ -67,6 +67,14 @@
                         <label>Password</label>
                         <input type="password" name="password" id="password" required="">
                     </div>
+
+                    <!-- Validation Message -->
+                    @if ($errors->has('login') || $errors->has('password'))
+                    <div class="alert alert-danger" role="alert">
+                        Incorrect email/username/phone or password. Please try again.
+                    </div>
+                    @endif
+                    
                     <div class="form-group message-btn">
                         <button type="submit" class="theme-btn btn-one">Sign in</button>
                     </div>

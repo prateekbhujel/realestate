@@ -45,6 +45,12 @@
 
                         </div>
                         <div class="tabs-box">
+                            <div class="tab-btn-box">
+                                <ul class="tab-btns tab-buttons centred clearfix">
+                                    <li class="tab-btn active-btn" data-tab="#tab-1">Agent Login</li>
+                                    <li class="tab-btn" data-tab="#tab-2">Agent Register</li>
+                                </ul>
+                            </div>
     <div class="tabs-content">
         <div class="tab active-tab" id="tab-1">
             <div class="inner-box">
@@ -61,6 +67,14 @@
                         <label>Password</label>
                         <input type="password" name="password" id="password" required="">
                     </div>
+
+                    <!-- Validation Message -->
+                    @if ($errors->has('login') || $errors->has('password'))
+                    <div class="alert alert-danger" role="alert">
+                        Incorrect email/username/phone or password. Please try again.
+                    </div>
+                    @endif
+                    
                     <div class="form-group message-btn">
                         <button type="submit" class="theme-btn btn-one">Sign in</button>
                     </div>
@@ -70,11 +84,11 @@
         </div>
         <div class="tab" id="tab-2">
             <div class="inner-box">
-                <h4>Agent Register</h4>
-                <form action="{{ route('register') }}" method="POST" class="default-form">
+                <h4>Register Now As an Agent</h4>
+                <form action="{{ route('agent.register') }}" method="POST" class="default-form">
                     @csrf
                     <div class="form-group">
-                        <label>Full Name</label>
+                        <label>Agent Company Name</label>
                         <input type="text" name="name" id="name" required="" placeholder="Jhone Doe">
                     </div>
                     <div class="form-group">
@@ -86,6 +100,10 @@
                         <input type="email" name="email" id="email" required="" placeholder="email@gmail.com">
                     </div>
                     <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="text" name="phone" id="phone" required="" placeholder="+977-9812345456">
+                    </div>
+                    <div class="form-group">
                         <label>Password</label>
                         <input type="password" name="password" id="password" required="" placeholder="Type Your Password">
                     </div>
@@ -94,9 +112,10 @@
                         <input type="password" name="password_confirmation" id="password_confirmation" required="" placeholder="Password and Confirm Password Should be Same !">
                     </div>
                     <div class="form-group message-btn">
-                        <button type="submit" class="theme-btn btn-one">Register as an Agent !</button>
+                        <button type="submit" class="theme-btn btn-one">Register !</button>
                     </div>
                 </form>
+
             </div>
         </div>
     </div>

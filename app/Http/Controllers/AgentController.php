@@ -3,6 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\support\Facades\Auth;
+use Illuminate\support\Facades\Hash;
+use Illuminate\Validation\Rules;
+use Illumintae\View\View;
+
 
 class AgentController extends Controller
 {
@@ -24,6 +32,33 @@ class AgentController extends Controller
       return view('agent.agent_login');
      }
      /** End of AgentLogin method. */
+
+
+
+     /** Start of AgentRegister method. 
+      * Register an Agent into the DataBase.
+     */
+     public function AgentRegister(Request $request)
+     {
+      
+      $user = User::create([
+        'name' => $request->name,
+        'username' => $request->username,
+        'email' => $request->email,
+        'phone' => $request->email,
+        'password' => Hash::make($request->password),
+        'role' => 'agent',
+        'status' => 'inactive',
+      ]);
+
+      event(new Registered($user));
+
+      Auth::login($user);
+
+      return redirect(RouteServiceProvider::AGENT);
+
+     }
+     /** End of AgentRegister method. */
 
 
 }
