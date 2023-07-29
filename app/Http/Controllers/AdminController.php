@@ -173,6 +173,136 @@ class AdminController extends Controller
         return back()->with($notification);
     }
     /** End of AdminUpdatePassword  Method */
+    
+
+    /** Start of AllAgent  Method 
+     * Returns the list of all agents name and details.
+    */
+    public function AllAgent()
+    {
+        $allagent = User::where('role', 'agent')->get();
+
+        return view('backend.agentuser.all_agent', compact('allagent'));
+    }
+    /** End of AllAgent  Method */
+
+
+
+    /** Start of AddAgent  Method 
+     * Returns the view to add the agents page
+    */
+    public function AddAgent()
+    {
+
+        return view('backend.agentuser.add_agent');
+    }
+    /** End of AddAgent  Method */
+
+
+    /** Start of StoreAgent  Method 
+     * Store the data into DB and save it.
+    */
+
+    public function StoreAgent(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'username' => 'required|string|unique:users,username',
+            'phone' => 'nullable|string|max:255',
+            'address' => 'nullable|string|max:255',
+            'password' => 'required|string|min:6',
+        ]);
+    
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'username' => $request->username,
+            'phone' => $request->phone,
+            'address' => $request->address,
+            'password' => Hash::make($request->password),
+            'role' => 'agent',
+            'status' => 'active', 
+        ]);
+    
+        $notification = array(
+            'message' => 'Agent Created Successfully',
+            'alert-type' => 'success'
+        );
+    
+        return redirect()->route('all.agent')->with($notification);
+    }  
+    /** End of StoreAgent  Method */
+
+
+    /** Start of EditAgent Method 
+     * Returns the veiw to edit the Page
+    */
+    public function EditAgent($id){
+
+        $allagent = User::findOrFail($id);
+        return view('backend.agentuser.edit_agent',compact('allagent'));
+    
+      }
+    /** End of EditAgent Method */
+
+
+
+    /** Start of UpdateAgent Method 
+     * Store and Update the edited user data.
+    */
+    public function UpdateAgent(Request $request)
+    {
+        // Validate the incoming request data
+        $request->validate([
+            'id' => 'required|exists:users,id', // Check if the user with the given ID exists
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $request->id, // Allow the current email if it's unchanged
+            'phone' => 'required|string|max:20',
+            'address' => 'nullable|string|max:500', // Address is optional, but if provided, it should be a string with max 500 characters
+        ]);
+    
+        $user_id = $request->id;
+    
+        // Find the user by ID or throw a 404 error if not found
+        $user = User::findOrFail($user_id);
+    
+        // Update the user data
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'address' => $request->address,
+        ]);
+    
+        $notification = [
+            'message' => 'Agent Updated Successfully',
+            'alert-type' => 'success'
+        ];
+    
+        return redirect()->route('all.agent')->with($notification);
+    }    
+    /** End of UpdateAgent Method */
+
+
+
+    /** Start of DeleteAgent  Method 
+     * Deletes the Desired or selected Users data from DB.
+     * and send toaster notification of success.
+    */
+    public function DeleteAgent($id){
+
+        User::findOrFail($id)->delete();
+
+        $notification = array(
+                'message' => 'Agent Deleted Successfully',
+                'alert-type' => 'success'
+            );
+
+            return redirect()->back()->with($notification); 
+
+    }
+    /** End of DeleteAgent  Method */
 
 
 

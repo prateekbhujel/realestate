@@ -91,6 +91,7 @@ Route::middleware(['auth','role:admin'])->group(function(){ // from laravel 9 an
         Route::get('/edit_property_type/{id}', 'EditType')->name('edit.type');
         Route::post('/update_property_type', 'UpdateType')->name('update.type');
         Route::get('/delete_property_type/{id}', 'DeleteType')->name('delete.type');
+        
 
     }); // End Property Type All Route.
     
@@ -133,5 +134,22 @@ Route::middleware(['auth','role:admin'])->group(function(){ // from laravel 9 an
         Route::post('/active/property', 'ActiveProperty')->name('active.property');
 
     }); // End Property Route.
+
+    //Agent All Route
+    Route::controller(AdminController::class)->group(function(){
+        
+        Route::get('/all/agent', 'AllAgent')->name('all.agent');
+
+        Route::get('/add/agent', 'AddAgent')->name('add.agent');
+
+        Route::post('/store/agent', 'StoreAgent')->name('store.agent'); 
+
+        Route::get('/edit/agent/{id}', 'EditAgent')->name('edit.agent');
+
+        Route::post('/update/agent', 'UpdateAgent')->name('update.agent');
+        
+        Route::get('/delete/agent/{id}', 'DeleteAgent')->name('delete.agent'); 
+
+    });// End Agent All Route
 
 }); //End Admin
