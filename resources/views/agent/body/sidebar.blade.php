@@ -1,3 +1,9 @@
+@php
+$id = Auth::user()->id;
+$agentId = App\Models\User::find($id);
+$status = $agentId->status;
+@endphp
+
 <nav class="sidebar">
     <div class="sidebar-header">
         <a href="{{ route('admin.dashboard') }}" class="sidebar-brand">
@@ -18,6 +24,9 @@
             <span class="link-title">Dashboard</span>
             </a>
         </li>
+
+        @if($status === 'active')
+        
         <li class="nav-item nav-category">RealEstate</li>
 
         <li class="nav-item">
@@ -29,10 +38,10 @@
             <div class="collapse" id="property">
                 <ul class="nav sub-menu">
                     <li class="nav-item">
-                        <a href="{{ route('all.property') }}" class="nav-link">All Property</a>
+                        <a href="{{ route('agent.all.property') }}" class="nav-link">All Property</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('add.property') }}" class="nav-link">Add Property</a>
+                        <a href="{{ route('agent.add.property') }}" class="nav-link">Add Property</a>
                     </li>
                 </ul>
             </div>
@@ -82,14 +91,10 @@
             </div>
         </li>
         
-         
-        <li class="nav-item nav-category">Docs</li>
-        <li class="nav-item">
-            <a href="#" target="_blank" class="nav-link">
-            <i class="link-icon" data-feather="hash"></i>
-            <span class="link-title">Documentation</span>
-            </a>
-        </li>
+         @else
+
+         @endif
+
         </ul>
     </div>
 </nav>

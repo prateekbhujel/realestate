@@ -153,6 +153,7 @@
 	<script src="{{ asset('backend/assets/vendors/tinymce/tinymce.min.js') }}"></script>
 	<script src="{{ asset('backend/assets/js/tinymce.js') }}"></script>
 
+	<script src="{{ asset('backend/assets/js/bootstrap-toggle.min.js') }}"></script>
 	
 </body>
 </html>    

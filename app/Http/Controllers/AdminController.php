@@ -306,4 +306,19 @@ class AdminController extends Controller
 
 
 
+    /** Start of changeStatus Method 
+     * Changes the user status active to inactive and passed data via JSON AJAX.
+    */
+    public function changeStatus(Request $request)
+    {
+        $user = User::find($request->user_id);
+        $user->status = $request->status;
+        $user->save();
+
+        return response()->json(['success'=> 'Status Changed Successfully !']);
+    }
+    /** End of changeStatus Method */
+
+
+
 }

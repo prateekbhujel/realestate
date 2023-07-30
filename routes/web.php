@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\Backend\PropertyTypeController;
 use App\Http\Controllers\Backend\PropertyController;
 use App\Http\Middleware\RedirectIfAuthenticated;
+use App\Http\Controllers\Agent\AgentPropertyController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -150,6 +151,28 @@ Route::middleware(['auth','role:admin'])->group(function(){ // from laravel 9 an
         
         Route::get('/delete/agent/{id}', 'DeleteAgent')->name('delete.agent'); 
 
+        Route::get('/changeStatus', 'changeStatus'); 
+
     });// End Agent All Route
 
 }); //End Admin
+
+
+
+
+ /// Agent Group Middleware 
+ Route::middleware(['auth','role:agent'])->group(function(){
+
+    // Agent All Property  
+Route::controller(AgentPropertyController::class)->group(function(){
+
+   Route::get('/agent/all/property', 'AgentAllProperty')->name('agent.all.property'); 
+
+   Route::get('/agent/add/property', 'AgentAddProperty')->name('agent.add.property'); 
+
+   Route::post('/agent/store/property', 'AgentStoreProperty')->name('agent.store.property'); 
+
+
+});
+
+}); // End Group Agent Middleware
