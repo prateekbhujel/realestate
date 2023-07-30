@@ -6,7 +6,7 @@ $status = $agentId->status;
 
 <nav class="sidebar">
     <div class="sidebar-header">
-        <a href="{{ route('admin.dashboard') }}" class="sidebar-brand">
+        <a href="{{ route('agent.dashboard') }}" class="sidebar-brand">
         RealEstae<span>Agent</span>
         </a>
         <div class="sidebar-toggler not-active">
