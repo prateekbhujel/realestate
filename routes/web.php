@@ -205,7 +205,11 @@ Route::controller(AgentPropertyController::class)->group(function(){
 
     Route::post('/store/professional/plan', 'StoreProfessionalPlan')->name('store.professional.plan');
 
+    Route::get('/package/history', 'PackageHistory')->name('package.history');
 
-});
+    Route::get('/agent/package/invoice/download/{id}', 'AgentPackageInvoice')->name('agent.package.invoice');
+
+
+});    
 
 }); // End Group Agent Middleware
