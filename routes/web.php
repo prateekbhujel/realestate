@@ -134,6 +134,10 @@ Route::middleware(['auth','role:admin'])->group(function(){ // from laravel 9 an
 
         Route::post('/active/property', 'ActiveProperty')->name('active.property');
 
+        Route::get('/admin/package_history', 'AdminPackageHistory')->name('admin.package.history');
+
+        Route::get('/package/invoice/{id}', 'PackageInvoice')->name('package.invoice');
+
     }); // End Property Route.
 
     //Agent All Route

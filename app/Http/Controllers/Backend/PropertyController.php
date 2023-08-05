@@ -14,6 +14,8 @@ use Intervention\Image\Facades\Image;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Carbon\Carbon;
 use PHPUnit\Framework\Constraint\Count;
+use App\Models\PackagePlan;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class PropertyController extends Controller
 {
@@ -489,6 +491,38 @@ class PropertyController extends Controller
 
     }
     /** End of InactiveProperty Method. */
+
+    
+    /** Start of AdminPackageHistory Method. 
+     *  Views the packages history of all Agents.
+    */
+    public function AdminPackageHistory()
+    {
+        
+        $packagehistory = PackagePlan::latest()->get();
+        
+        return view('backend.package.package_history', compact('packagehistory'));
+
+    }
+    /** End of AdminPackageHistory Method. */
+
+
+    /** Start of PackageInvoice Method. 
+     * Downloads the Invoice of Selected Agents
+    */
+    
+    public function PackageInvoice($id){
+
+        $packagehistory = PackagePlan::where('id',$id)->first();
+
+        $pdf = Pdf::loadView('backend.package.package_history_invoice', compact('packagehistory'))->setPaper('a4')->setOption([
+            'tempDir' => public_path(),
+            'chroot' => public_path(),
+        ]);
+        return $pdf->download('invoice.pdf');
+
+    }
+    /** End of PackageInvoice Method. */
 
 
 
