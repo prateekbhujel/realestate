@@ -9,7 +9,8 @@ use App\Http\Controllers\Backend\PropertyTypeController;
 use App\Http\Controllers\Backend\PropertyController;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Http\Controllers\Agent\AgentPropertyController;
-use App\Http\Controllers\frontend\IndexController;
+use App\Http\Controllers\Frontend\IndexController;
+use App\Http\Controllers\Frontend\WishlistController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -223,3 +224,5 @@ Route::controller(AgentPropertyController::class)->group(function(){
 // front-End Property details All route
 
 Route::get('property/details/{id}/{slug}', [IndexController::class, 'PropertyDetails']);
+
+Route::get('property/details/{id}/{slug}', [WishlistController::class, 'PropertyDetails']);
