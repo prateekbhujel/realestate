@@ -29,9 +29,9 @@
                 </a>
             </li>
             <li>
-                <a href="blog-details.html">
+                <a href="{{ route('user.wishlist') }}">
                     <i class="fa fa-indent" aria-hidden="true"></i>
-                    Add a Property
+                    WishList
                 </a>
             </li>
             <li>
