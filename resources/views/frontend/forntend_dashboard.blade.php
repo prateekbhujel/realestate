@@ -117,6 +117,9 @@
 		@endif 
 	</script>
 
+    <script src="{{ asset('backend/assets/js/sweetalert2@10.js') }}"></script>
+
+
     <script type="text/javascript">
 
             $.ajaxSetup({
@@ -127,7 +130,40 @@
         // Add to Wish List
         function addToWishList(property_id)
         {
+            $.ajax({
+                type: "post",
+                datatype: 'json',
+                url: "/add-to-wishList/"+property_id,
 
+                success: function (data) {
+                
+                    // Start Message    
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        
+                        showConfirmButton: false,
+                        timer: 3000 
+                    })
+                    if ($.isEmptyObject(data.error)) {
+                            
+                            Toast.fire({
+                            type: 'success',
+                            icon: 'success', 
+                            title: data.success, 
+                            })
+
+                    }else{
+                    
+                    Toast.fire({
+                                type: 'error',
+                                icon: 'error', 
+                                title: data.error, 
+                                })
+                            }
+                    //End Message
+                }
+            });
         }
     </script>
 </body><!-- End of .page_wrapper -->
