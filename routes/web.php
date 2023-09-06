@@ -225,4 +225,5 @@ Route::controller(AgentPropertyController::class)->group(function(){
 
 Route::get('property/details/{id}/{slug}', [IndexController::class, 'PropertyDetails']);
 
-Route::get('property/details/{id}/{slug}', [WishlistController::class, 'PropertyDetails']);
+//Wish Add Route
+Route::post('/add-to-wishList/{property_id}', [WishlistController::class, 'AddToWishList']);
