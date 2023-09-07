@@ -54,4 +54,18 @@ class WishlistController extends Controller
         return view('frontend.dashboard.wishlist', compact('userData'));
         
     }  // End Method
+
+    public function GetWishlistProperty()
+    {   
+        
+        $wishlist = Wishlist::with('property')->where('user_id', Auth::id())->latest()->get();
+
+        $wishQty = wishlist::count();
+
+        return response()->json([
+                                    'wishlist'=> $wishlist,
+                                    'wishQty'=> $wishQty,
+                                ]);
+
+    }// End Method
 }
