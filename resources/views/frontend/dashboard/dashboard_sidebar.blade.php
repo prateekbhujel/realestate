@@ -23,9 +23,9 @@
                 </a>
             </li>
             <li>
-                <a href="blog-details.html">
+                <a href="{{ route('user.compare') }}">
                     <i class="fa fa-list-alt" aria-hidden="true"></i>
-                    Properties
+                    Compare
                 </a>
             </li>
             <li>

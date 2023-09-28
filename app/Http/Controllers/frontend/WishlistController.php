@@ -10,7 +10,6 @@ use App\Models\Facility;
 use App\Models\Amenities;
 use App\Models\PropertyType; 
 use App\Models\User; 
-use App\Models\PackagePlan;
 use App\Models\Wishlist;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;

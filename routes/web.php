@@ -11,6 +11,7 @@ use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Http\Controllers\Agent\AgentPropertyController;
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\WishlistController;
+use App\Http\Controllers\Frontend\CompareController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -38,12 +39,19 @@ Route::middleware('auth')->group(function () {
     Route::post('/user/update_password', [UserController::class, 'UserUpdatePassword'])->name('user.password.update');
 
 
-    // User WishList Route 
+    // User WishList All Route 
     Route::controller(WishlistController::class)->group(function(){
 
-            Route::get('user_wishlist', 'UserWishList')->name('user.wishlist');
-            Route::get('/get-wishlist-property', 'GetWishlistProperty');
-            Route::get('/wishlist-remove/{id}', 'WishlistRemove');
+        Route::get('user_wishlist', 'UserWishList')->name('user.wishlist');
+        Route::get('/get-wishlist-property', 'GetWishlistProperty');
+        Route::get('/wishlist-remove/{id}', 'WishlistRemove');
+    });
+
+    // User Compare All Route 
+    Route::controller(CompareController::class)->group(function(){
+
+        Route::get('user_compare', 'UserCompare')->name('user.compare');
+
     });
 
 });
@@ -236,3 +244,6 @@ Route::get('property/details/{id}/{slug}', [IndexController::class, 'PropertyDet
 
 //Wish Add Route
 Route::post('/add-to-wishList/{property_id}', [WishlistController::class, 'AddToWishList']);
+
+//Compare Add Route
+Route::post('/add-to-compare/{property_id}', [CompareController::class, 'AddToCompare']);
