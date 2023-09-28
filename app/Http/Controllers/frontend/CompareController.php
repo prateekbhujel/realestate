@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request; 
+use App\Models\User; 
 use App\Models\Compare;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -12,6 +13,7 @@ use Carbon\Carbon;
 class CompareController extends Controller
 {
     
+
     public function AddToCompare(Request $request, $property_id)
     {
         if (Auth::check()) {
@@ -36,4 +38,12 @@ class CompareController extends Controller
         }
 
     } //End Method
+
+
+    public function UserCompare()
+    {
+
+        return view('frontend.dashboard.compare');
+
+    } // End Method
 }
