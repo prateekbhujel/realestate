@@ -11,6 +11,8 @@ use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Http\Controllers\Agent\AgentPropertyController;
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\WishlistController;
+use App\Http\Controllers\Frontend\CompareController;
+use App\Models\Compare;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -236,3 +238,6 @@ Route::get('property/details/{id}/{slug}', [IndexController::class, 'PropertyDet
 
 //Wish Add Route
 Route::post('/add-to-wishList/{property_id}', [WishlistController::class, 'AddToWishList']);
+
+//Compare Add Route
+Route::post('/add-to-compare/{property_id}', [CompareController::class, 'AddToCompare']);
