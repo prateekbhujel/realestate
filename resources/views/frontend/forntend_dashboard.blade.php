@@ -366,7 +366,16 @@
                                     <td>
                                         <p>${value.property.bathrooms}</p>
                                     </td>
-
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p>Action</p>
+                                    </td>
+                                    <td>
+                                        <a type="submit" class="text-danger" id="${value.id}" onclick="compareRemove(this.id)">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                    </td>
                                 </tr> `            
                             });
 
@@ -376,10 +385,48 @@
                      }
             compare();
     
-    
-            // Wish List Remove Start
+        // compare  Remove Start
+        function compareRemove(id)
+        {
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: "/compare-remove/"+id,
 
-            // End Wish List Remove  
+                success:function(data){
+                    compare();
+                    
+                    // Start Message    
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        
+                        showConfirmButton: false,
+                        timer: 3000 
+                    })
+                    if ($.isEmptyObject(data.error)) {
+                            
+                            Toast.fire({
+                            type: 'success',
+                            icon: 'success', 
+                            title: data.success, 
+                            })
+
+                    }else{
+                    
+                    Toast.fire({
+                                type: 'error',
+                                icon: 'error', 
+                                title: data.error, 
+                                })
+                            }
+                        }
+                        //End Message
+                
+
+            });
+        }
+        // End Compare Property Remove  
         </script>
 
 
