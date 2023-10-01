@@ -81,6 +81,13 @@
                     <span class="link-title">Package History</span>
                     </a>
                 </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('admin.property.message') }}" class="nav-link">
+                    <i class="link-icon" data-feather="calendar"></i>
+                    <span class="link-title">Property Message</span>
+                    </a>
+                </li>
                 
                 <li class="nav-item nav-category">User All FUnctions</li>
                 <li class="nav-item">

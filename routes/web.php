@@ -159,6 +159,8 @@ Route::middleware(['auth','role:admin'])->group(function(){ // from laravel 9 an
 
         Route::get('/package/invoice/{id}', 'PackageInvoice')->name('package.invoice');
 
+        Route::get('/admin/property/message/', 'AdminPropertyMessage')->name('admin.property.message');
+
     }); // End Property Route.
 
     //Agent All Route
