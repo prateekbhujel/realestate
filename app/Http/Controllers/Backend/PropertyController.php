@@ -16,6 +16,9 @@ use Carbon\Carbon;
 use PHPUnit\Framework\Constraint\Count;
 use App\Models\PackagePlan;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\PropertyMessage;
+
+
 
 class PropertyController extends Controller
 {
@@ -524,9 +527,21 @@ class PropertyController extends Controller
     }
     /** End of PackageInvoice Method. */
 
+/*
+|--------------------------------------------------------------------------
+| Start the AdminPropertyMessage Method
+| This method returns the view to the user.
+|--------------------------------------------------------------------------
+*/
+    public function AdminPropertyMessage(){
 
+        $usermsg = PropertyMessage::latest()->get();
+        return view('backend.message.all_message',compact('usermsg'));
+
+    }// End Method  
 
 
 
 
 }
+
