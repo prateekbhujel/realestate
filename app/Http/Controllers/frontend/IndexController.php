@@ -11,6 +11,10 @@ use App\Models\Amenities;
 use App\Models\PropertyType; 
 use App\Models\User; 
 use App\Models\PackagePlan; 
+use Illuminate\Support\Facades\Auth;
+use App\Models\PropertyMessage;
+use Carbon\Carbon;
+
 
 
 class IndexController extends Controller
@@ -38,6 +42,41 @@ class IndexController extends Controller
 
     public function PropertyMessage(Request $request)
     {
+        $pid = $request->property_id;
+        $aid = $request->agent_id;
 
+        if(Auth::check()) {
+
+            PropertyMessage::insert([
+
+                    'user_id'=> Auth::user()->id,
+                    'agent_id'=> $aid,
+                    'property_id'=> $pid,
+                    'msg_name'=> $request->msg_name,
+                    'msg_email'=> $request->msg_email,
+                    'msg_phone'=> $request->msg_phone,
+                    'message'=> $request->message,
+                    'created_at'=> Carbon::now(),
+            ]);
+
+            
+            $notification = [
+                        'message' => 'Message Send Successfully !',
+                        'alert-type' => 'success'
+            ];
+
+            return redirect()->back()->with($notification);
+
+
+        }else {
+
+            $notification = [
+              'message' => 'Login Your Account to Message',
+               'alert-type' => 'error'
+                            ];
+
+            return redirect()->back()->with($notification);
+        }
+        
     } // End Method
 }
