@@ -42,3 +42,4 @@ class UserFactory extends Factory
         ]);
     }
 }
+// Needd to add properties and property icon

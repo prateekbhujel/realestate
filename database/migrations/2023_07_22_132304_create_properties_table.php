@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('properties', function (Blueprint $table) {
             $table->id();
-            $table->string('ptype_id ');
+            $table->string('ptype_id');
             $table->string('amenities_id');
             $table->string('property_name');
             $table->string('property_slug');
