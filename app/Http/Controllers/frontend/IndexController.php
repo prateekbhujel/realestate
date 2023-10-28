@@ -79,4 +79,12 @@ class IndexController extends Controller
         }
         
     } // End Method
+
+    public function AgentDetails($id)
+    {
+        $agent = User::findorFail($id);
+
+        return view('frontend.agent.agent_details', compact('agent'));
+        
+    } // End Method
 }
