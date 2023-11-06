@@ -71,7 +71,7 @@ class IndexController extends Controller
         }else {
 
             $notification = [
-              'message' => 'Login Your Account to Message',
+              'message' => 'Login Your Account first to Message',
                'alert-type' => 'error'
                             ];
 
@@ -82,10 +82,48 @@ class IndexController extends Controller
 
     public function AgentDetails($id)
     {
-        $agent = User::findorFail($id);
+        $agent    = User::findorFail($id);
         $property = Property::where('agent_id', $id)->get();
+        $featured = Property::where('featured', 1)->where('agent_id', $id)->limit(3)->get();
 
-        return view('frontend.agent.agent_details', compact('agent','property'));
+        return view('frontend.agent.agent_details', compact('agent','property', 'featured'));
         
     } // End Method
+
+    public function AgentDetailsMessage(Request $request)
+    {
+        $aid = $request->agent_id;
+
+        if(Auth::check()) {
+
+            PropertyMessage::insert([
+
+                    'user_id'=> Auth::user()->id,
+                    'agent_id'=> $aid,
+                    'msg_name'=> $request->msg_name,
+                    'msg_email'=> $request->msg_email,
+                    'msg_phone'=> $request->msg_phone,
+                    'message'=> $request->message,
+                    'created_at'=> Carbon::now(),
+            ]);
+
+            
+            $notification = [
+                        'message' => 'Message Send Successfully !',
+                        'alert-type' => 'success'
+            ];
+
+            return redirect()->back()->with($notification);
+
+
+        }else {
+
+            $notification = [
+              'message' => 'Login Your Account first to Message',
+               'alert-type' => 'error'
+                            ];
+
+            return redirect()->back()->with($notification);
+        }
+    }// End Method
 }

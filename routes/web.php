@@ -13,9 +13,6 @@ use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\WishlistController;
 use App\Http\Controllers\Frontend\CompareController;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
 // User Routes.
 Route::get('/', [UserController::class, 'index']);
@@ -244,7 +241,7 @@ Route::controller(AgentPropertyController::class)->group(function(){
 
 // front-End Property details All route
 
-Route::get('property/details/{id}/{slug}', [IndexController::class, 'PropertyDetails']);
+Route::get('/property/details/{id}/{slug}', [IndexController::class, 'PropertyDetails']);
 
 //Wish Add Route
 Route::post('/add-to-wishList/{property_id}', [WishlistController::class, 'AddToWishList']);
@@ -252,8 +249,11 @@ Route::post('/add-to-wishList/{property_id}', [WishlistController::class, 'AddTo
 //Compare Add Route
 Route::post('/add-to-compare/{property_id}', [CompareController::class, 'AddToCompare']);
 
-// Send Message Route
-Route::post('property/message', [IndexController::class, 'PropertyMessage'])->name('property.message');
+// Send Message from property details Route
+Route::post('/property/message', [IndexController::class, 'PropertyMessage'])->name('property.message');
 
 // Agent Details Page in frontend
-Route::get('agent/details/{id}', [IndexController::class, 'AgentDetails'])->name('agent.details');
+Route::get('/agent/details/{id}', [IndexController::class, 'AgentDetails'])->name('agent.details');
+
+// Send Message from agent details Route
+Route::post('/agent/details/message', [IndexController::class, 'AgentDetailsMessage'])->name('agent.details.message');
