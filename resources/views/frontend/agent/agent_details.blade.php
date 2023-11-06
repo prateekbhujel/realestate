@@ -166,17 +166,11 @@
        $id = Auth::user()->id;
        $userData = APP\Models\User::find($id);
    @endphp
-        <form action="{{ route('property.message') }}" method="post" class="default-form">
+        <form action="{{ route('agent.details.message') }}" method="post" class="default-form">
             @csrf
-            <input type="hidden" name="property_id" value="{{ $property->id }}">
 
-            @if ($property->agent_id == Null)
-                <input type="hidden" name="agent_id" value="">
-                
-            @else
-                <input type="hidden" name="agent_id" value="{{ $property->agent_id }}">
-                
-            @endif
+            <input type="hidden" name="agent_id" value="{{ $agent->id }}">
+
             <div class="form-group">
                 <input type="text" name="msg_name" placeholder="Your name" value="{{ $userData->name }}">
             </div>
@@ -194,16 +188,10 @@
             </div>
         </form>                                           
     @else
-        <form action="{{ route('property.message') }}" method="post" class="default-form">
+        <form action="{{ route('agent.details.message') }}" method="post" class="default-form">
             @csrf
-           
-            @if ($property->agent_id == Null)
-                <input type="hidden" name="agent_id" value="">
-            
-            @else
-                <input type="hidden" name="agent_id" value="{{ $property->agent_id }}">
-                
-            @endif
+
+            <input type="hidden" name="agent_id" value="{{ $agent->id }}">
 
             <div class="form-group">
                 <input type="text" name="msg_name" placeholder="Your name" required="">
@@ -223,7 +211,7 @@
         </form>                                        
    @endauth
 </div>
-                                
+
 </div>
 <div class="category-widget sidebar-widget">
 <div class="widget-title">
