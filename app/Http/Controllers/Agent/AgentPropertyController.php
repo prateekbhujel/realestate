@@ -14,9 +14,10 @@ use Intervention\Image\Facades\Image;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-use DB;
+use Illuminate\Support\Facades\DB;
 use App\Models\PackagePlan;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\PropertyMessage;
 
 class AgentPropertyController extends Controller
 {
@@ -523,4 +524,18 @@ class AgentPropertyController extends Controller
         return $pdf->download('package_history_invoice.pdf');
 
     }// End Method
+
+    /**
+     * Recieve messages from user sector
+     * returns view
+     */
+    public function AgentPropertyMessage()
+    {
+        $id = Auth::user()->id;
+        $usermsg = PropertyMessage::where('agent_id', $id)->get();
+        
+
+        return view('agent.message.all_message', compact('usermsg'));
+        
+    }// End method
 } 
