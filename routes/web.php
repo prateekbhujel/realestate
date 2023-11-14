@@ -187,7 +187,7 @@ Route::middleware(['auth','role:admin'])->group(function(){ // from laravel 9 an
  /// Agent Group Middleware 
  Route::middleware(['auth','role:agent'])->group(function(){
 
-    // Agent All Property  
+    // Agent All Property  zz
 Route::controller(AgentPropertyController::class)->group(function(){
 
    Route::get('/agent/all/property', 'AgentAllProperty')->name('agent.all.property'); 
@@ -213,6 +213,8 @@ Route::controller(AgentPropertyController::class)->group(function(){
    Route::get('/agent/details/property/{id}', 'AgentDetailsProperty')->name('agent.details.property');
   
    Route::get('/agent/delete/property/{id}', 'AgentDeleteProperty')->name('agent.delete.property');
+
+   Route::get('/agent/property/messages/', 'AgentPropertyMessage')->name('agent.property.message');
    
 });
 
