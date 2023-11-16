@@ -538,4 +538,19 @@ class AgentPropertyController extends Controller
         return view('agent.message.all_message', compact('usermsg'));
         
     }// End method
+
+    /**
+     *  This function allows or return views 
+     *  of the selected message.
+     */
+    public function AgentMessageDetails($id)
+    {
+
+        $user_id = Auth::user()->id;
+        $usermsg = PropertyMessage::where('agent_id',$user_id)->get();
+
+        $msgdetails = PropertyMessage::findOrFail($id);
+        return view('agent.message.message_details',compact('usermsg','msgdetails'));
+
+    }// End Method
 } 
