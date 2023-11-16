@@ -215,6 +215,8 @@ Route::controller(AgentPropertyController::class)->group(function(){
    Route::get('/agent/delete/property/{id}', 'AgentDeleteProperty')->name('agent.delete.property');
 
    Route::get('/agent/property/messages/', 'AgentPropertyMessage')->name('agent.property.message');
+
+   Route::get('/agent/message/details/{id}', 'AgentMessageDetails')->name('agent.message.details');
    
 });
 
